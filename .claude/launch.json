@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "bnj-v1",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "http-server", "Nouveau site BNJ/v1", "-p", "5180", "-c-1"],
+      "port": 5180
+    },
+    {
+      "name": "bnj-next",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    }
+  ]
+}
