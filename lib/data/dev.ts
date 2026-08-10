@@ -91,6 +91,12 @@ export const devData: LandingPageData = {
     body: "Un développeur senior de notre réseau coûte en moyenne 2 à 3 fois moins cher qu'un profil équivalent recruté localement — sans compromis sur la qualité. Ils ont les mêmes formations, les mêmes certifications, les mêmes GitHub bien remplis. Ils ont juste choisi de vivre ailleurs.",
     proof:
       "Nos développeurs ont contribué à des projets pour des entreprises européennes, des startups financées, des scale-ups en hypercroissance. Ils savent travailler en remote, en agile, en équipe distribuée.",
+    metrics: [
+      { value: "-60%", label: "Sur vos coûts RH" },
+      { value: "8 000+", label: "Candidats dans notre ATS" },
+      { value: "12%", label: "Des candidats sont acceptés" },
+      { value: "94%", label: "Satisfaction à 90 jours" },
+    ],
   },
   faq: [],
   finalCTA: {

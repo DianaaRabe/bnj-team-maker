@@ -183,3 +183,785 @@ body {
   background: #590293;
   border-radius: 2px;
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   LE DOSSIER — monde visuel de la landing /dev uniquement.
+   Portée stricte : tout est préfixé .d- et vit sous [data-surface="dossier"].
+   Les landings /sdr, /rh, /agent-de-talent et le CMS ne sont pas affectés.
+   Matériau : chemise cartonnée, encre à tampon violette, onglets or,
+   réglure de formulaire, papier carbone, perforations.
+   ══════════════════════════════════════════════════════════════════════ */
+
+[data-surface="dossier"] {
+  /* Carton et encres */
+  --d-stock: #eceaf1;
+  --d-stock-2: #e3dfea;
+  --d-stock-3: #d5cee2;
+  --d-ink: #590293;
+  --d-ink-deep: #2b0748;
+  --d-text: #1c0b2e;
+  --d-text-2: #4a3d5c;
+  --d-gold: #feb527;
+  --d-violet-2: #c069ee;
+
+  background: var(--d-stock);
+  color: var(--d-text);
+  font-family: var(--font-archivo, "Archivo", system-ui, sans-serif);
+  font-synthesis-weight: none;
+  /* Approche courante resserrée : s'applique au texte courant et à tout ce
+     qui ne porte pas d'utilitaire d'approche explicite. */
+  letter-spacing: -0.012em;
+}
+
+/* Le fond du document suit la chemise, y compris en overscroll. */
+body:has([data-surface="dossier"]) {
+  background: #eceaf1;
+  color: #1c0b2e;
+}
+
+[data-surface="dossier"] ::selection {
+  background: #feb527;
+  color: #2b0748;
+}
+
+[data-surface="dossier"] ::-webkit-scrollbar-track {
+  background: #e3dfea;
+}
+
+/* ── Couche « saisie » : références, TJM, entrées de champ ────────────
+   DM Sans est proportionnelle : sans chiffres tabulaires, les TJM et les
+   références ne s'alignent plus en colonne dans les bordereaux et les
+   fiches. tabular-nums restaure la colonne du registre.                 */
+.d-typed {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-variant-ligatures: none;
+}
+
+/* ── Titre frappé : capitales serrées, graisse de tampon ─────────────── */
+.d-struck {
+  font-family: var(--font-archivo, "Archivo", system-ui, sans-serif);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.94;
+}
+
+/* ── Le tampon : encre violette, bord légèrement rongé, pose de travers ─
+   Le masque feTurbulence fait varier la densité d'encre (alpha 0.55→1)
+   pour éviter l'aplat parfait, qui trahit l'impression numérique.        */
+.d-stamp {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.095em;
+  color: var(--d-ink);
+  border: 2px solid var(--d-ink);
+  padding: 0.28em 0.6em 0.24em;
+  display: inline-block;
+  line-height: 1.1;
+  background: transparent;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='90'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.42 0 0 0 0.58'/%3E%3C/filter%3E%3Crect width='220' height='90' filter='url(%23i)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='90'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.42 0 0 0 0.58'/%3E%3C/filter%3E%3Crect width='220' height='90' filter='url(%23i)'/%3E%3C/svg%3E");
+  -webkit-mask-size: 220px 90px;
+  mask-size: 220px 90px;
+}
+
+/* Densité d'encre irrégulière, réutilisable hors du bloc .d-stamp
+   (le cachet de clôture, notamment, était le seul tampon parfaitement net). */
+.d-inked {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.42 0 0 0 0.58'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23i)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.42 0 0 0 0.58'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23i)'/%3E%3C/svg%3E");
+  -webkit-mask-size: 220px 220px;
+  mask-size: 220px 220px;
+}
+
+.d-stamp--gold {
+  color: var(--d-gold);
+  border-color: var(--d-gold);
+}
+
+.d-stamp--solid {
+  background: var(--d-ink);
+  color: var(--d-stock);
+  border-color: var(--d-ink);
+}
+
+/* ── Réglure de formulaire ───────────────────────────────────────────── */
+.d-rule {
+  border-top: 1px solid var(--d-stock-3);
+}
+.d-rule-ink {
+  border-top: 1.5px solid var(--d-ink);
+}
+
+/* Conducteur pointillé entre l'intitulé et la valeur d'un champ. */
+.d-leader {
+  flex: 1;
+  align-self: flex-end;
+  margin: 0 0.6rem 0.32em;
+  border-bottom: 1px dotted #b3a8c6;
+  min-width: 1.5rem;
+}
+
+/* ── Bande perforée : marge gauche des pièces du dossier ─────────────── */
+.d-perf {
+  background-image: radial-gradient(circle at 50% 50%, var(--d-stock-3) 0 2.6px, transparent 2.9px);
+  background-size: 100% 26px;
+  background-position: center top;
+  background-repeat: repeat-y;
+}
+
+/* ── Quadrillage du hero : deux trames superposées (fine + large) et un
+   masque radial qui les fait décrocher vers les bords. C'est le masque,
+   pas une ombre, qui donne la profondeur — la feuille reste plate.      */
+.d-hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(89, 2, 147, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(89, 2, 147, 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgba(89, 2, 147, 0.075) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(89, 2, 147, 0.075) 1px, transparent 1px);
+  background-size: 26px 26px, 26px 26px, 130px 130px, 130px 130px;
+  -webkit-mask-image: radial-gradient(
+    125% 95% at 68% 12%,
+    #000 0%,
+    rgba(0, 0, 0, 0.6) 42%,
+    rgba(0, 0, 0, 0.18) 68%,
+    transparent 88%
+  );
+  mask-image: radial-gradient(
+    125% 95% at 68% 12%,
+    #000 0%,
+    rgba(0, 0, 0, 0.6) 42%,
+    rgba(0, 0, 0, 0.18) 68%,
+    transparent 88%
+  );
+}
+
+/* ── Bande de garanties : un bordereau de mentions, pas trois puces ──── */
+.d-guarantee {
+  border-top: 1.5px solid var(--d-ink);
+  border-bottom: 1px solid var(--d-stock-3);
+}
+
+/* ── Papier quadrillé, uniquement là où un formulaire en aurait ──────── */
+.d-grid-paper {
+  background-image:
+    linear-gradient(to right, rgba(89, 2, 147, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(89, 2, 147, 0.055) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ── Onglet intercalaire ─────────────────────────────────────────────── */
+.d-tab {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.68rem;
+  background: var(--d-stock-2);
+  border: 1px solid var(--d-stock-3);
+  border-bottom: none;
+  color: var(--d-text-2);
+  padding: 0.5rem 0.85rem 0.45rem;
+  clip-path: polygon(0 100%, 6px 0, calc(100% - 6px) 0, 100% 100%);
+  transition: background 0.14s linear, color 0.14s linear;
+}
+.d-tab[aria-current="true"] {
+  background: var(--d-gold);
+  border-color: var(--d-gold);
+  color: var(--d-ink-deep);
+  font-weight: 700;
+}
+
+/* ── L'action principale : un onglet cartonné massicoté, posé à plat.
+   Pas d'ombre portée nette : ce monde n'est pas néobrutaliste, et le
+   décalage 3px/3px était le tell le plus répété de la page.            */
+.d-action {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  background: var(--d-gold);
+  color: var(--d-ink-deep);
+  border: 1.5px solid var(--d-ink-deep);
+  transition: background 0.12s linear, color 0.12s linear;
+}
+.d-action:hover {
+  background: #ffc84f;
+}
+.d-action:active {
+  background: #e9a411;
+}
+
+/* Secondaire : encre au trait, pas en aplat. Un aplat #590293 sur carton
+   pèse plus lourd que l'or et volait la primauté à l'action de conversion. */
+.d-action--ink {
+  background: transparent;
+  color: var(--d-ink);
+  border-color: var(--d-ink);
+}
+.d-action--ink:hover {
+  background: var(--d-ink);
+  color: var(--d-stock);
+}
+.d-action--ink:active {
+  background: #47027a;
+  color: var(--d-stock);
+}
+
+/* ── Fiche talent : carton d'index, pas une carte en verre ────────────
+   Pas de bande d'accent latérale : l'encre structure la fiche par ses
+   filets de registre (en-tête et pied), comme un bordereau réel.        */
+.d-fiche {
+  background: #f4f2f7;
+  border: 1px solid var(--d-stock-3);
+}
+
+/* ── Champ de saisie du dossier ─────────────────────────────────────── */
+[data-surface="dossier"] .d-field {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  background: #f4f2f7;
+  border: 1px solid var(--d-stock-3);
+  border-bottom: 1.5px solid var(--d-ink);
+  color: var(--d-text);
+}
+
+/* ── Focus visible, tenu par le monde ───────────────────────────────── */
+[data-surface="dossier"] :focus-visible,
+.d-modal :focus-visible {
+  outline: 2px solid var(--d-ink);
+  outline-offset: 2px;
+}
+
+/* ── Révélations ──────────────────────────────────────────────────────
+   Règle : le contenu est visible par défaut. Le JS « arme » l'effet avant
+   la peinture (useLayoutEffect), puis le joue à l'entrée dans le viewport.
+   Sans JS, sans IntersectionObserver ou en reduced-motion, tout reste lu.
+   ─────────────────────────────────────────────────────────────────────── */
+
+@keyframes dLift {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.d-lift.is-armed {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.d-lift.is-in {
+  animation: dLift 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  animation-delay: var(--d-delay, 0s);
+}
+
+/* La pose du tampon : une seule fois, jamais au survol. */
+@keyframes dStampDown {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--d-rot, -2deg)) scale(1.14);
+  }
+  55% {
+    opacity: 1;
+  }
+  75% {
+    transform: rotate(var(--d-rot, -2deg)) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(var(--d-rot, -2deg)) scale(1);
+  }
+}
+
+.d-stampfx {
+  transform: rotate(var(--d-rot, -2deg));
+  transform-origin: center;
+}
+.d-stampfx.is-armed {
+  opacity: 0;
+}
+.d-stampfx.is-in {
+  animation: dStampDown 0.34s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d-lift.is-armed,
+  .d-stampfx.is-armed {
+    opacity: 1;
+    transform: none;
+  }
+  .d-stampfx.is-armed {
+    transform: rotate(var(--d-rot, -2deg));
+  }
+  .d-lift.is-in,
+  .d-stampfx.is-in {
+    animation: none;
+  }
+  [data-surface="dossier"] *,
+  .d-modal * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   LE PORTAIL — monde visuel de la landing /dev-v2 uniquement.
+   Portée stricte : tout est préfixé .p- et vit sous [data-surface="portal"].
+   Aucune interaction avec le dossier (/dev) ni avec les pages héritées.
+   Reproduction de la référence fournie : dôme lumineux occulté par le
+   panneau, ailes horizontales, anneaux concentriques, poussière d'étoiles.
+   ══════════════════════════════════════════════════════════════════════ */
+
+[data-surface="portal"] {
+  --p-bg: #0a0613;
+  --p-bg-2: #120c22;
+  --p-panel: #120d20;
+  --p-text: #ffffff;
+  --p-muted: #a79fbb;
+  --p-ink: #590293;
+  --p-ink-hover: #6d0bb4;
+  --p-violet: #c069ee;
+  --p-gold: #feb527;
+  /* Filets et surfaces translucides du panneau */
+  --p-line: rgba(255, 255, 255, 0.09);
+  --p-line-soft: rgba(255, 255, 255, 0.07);
+  --p-fill: rgba(255, 255, 255, 0.045);
+  --p-fill-hover: rgba(255, 255, 255, 0.07);
+  --p-text-dim: rgba(255, 255, 255, 0.82);
+  /* Surfaces du simulateur */
+  --p-sim-top: #12102f;
+  --p-sim-bottom: #201a55;
+  --p-sim-accent: #2a1d68;
+  --p-shadow: rgba(0, 0, 0, 0.45);
+
+  background: var(--p-bg);
+  color: var(--p-text);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  letter-spacing: -0.012em;
+}
+
+body:has([data-surface="portal"]) {
+  background: #0a0613;
+  color: #ffffff;
+}
+
+[data-surface="portal"] ::selection {
+  background: #c069ee;
+  color: #0a0613;
+}
+
+/* ── Ailes : la nappe horizontale qui court le long du bord du panneau ── */
+.p-wings {
+  background: radial-gradient(
+    ellipse 50% 50% at 50% 100%,
+    rgba(238, 214, 255, 0.95) 0%,
+    rgba(202, 130, 245, 0.62) 18%,
+    rgba(140, 50, 210, 0.34) 40%,
+    rgba(89, 2, 147, 0.14) 64%,
+    transparent 80%
+  );
+  filter: blur(26px);
+}
+
+/* ── Halo ambiant : la diffusion dans le ciel ────────────────────────
+   Vit HORS de la zone rognée. C'était lui que l'overflow-hidden coupait
+   net en haut ; libre, il s'éteint par sa propre courbe et monte derrière
+   l'accroche sans laisser d'arête.                                       */
+.p-ambient {
+  background: radial-gradient(
+    ellipse 42% 54% at 50% 100%,
+    rgba(206, 130, 250, 0.34) 0%,
+    rgba(140, 50, 210, 0.19) 30%,
+    rgba(100, 12, 165, 0.09) 50%,
+    rgba(89, 2, 147, 0.035) 66%,
+    transparent 80%
+  );
+  filter: blur(44px);
+}
+
+/* ── Zone rognée : bord bas net (l'occlusion par le panneau), bord haut
+   éteint par un masque — sans lui, anneaux et nappes se coupent droit. */
+.p-portal {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 100%);
+}
+
+/* ── Cœur : le dôme blanc-chaud, base occultée par le panneau ──────────
+   Stops resserrés et flou faible : un dégradé trop étalé produit une tache,
+   pas un dôme. C'est la netteté du bord qui fait lire une source. */
+.p-core {
+  background: radial-gradient(
+    circle at 50% 74%,
+    #ffffff 0%,
+    #fbf2ff 6%,
+    #e6c2ff 13%,
+    #c069ee 24%,
+    #8b2fd8 36%,
+    #590293 50%,
+    rgba(89, 2, 147, 0.25) 66%,
+    transparent 78%
+  );
+  filter: blur(9px);
+}
+
+/* Noyau incandescent, petit et très net — le blanc de la référence. */
+.p-core-hot {
+  background: radial-gradient(
+    circle at 50% 78%,
+    #ffffff 0%,
+    #ffffff 18%,
+    rgba(245, 228, 255, 0.9) 34%,
+    rgba(192, 105, 238, 0.5) 56%,
+    transparent 74%
+  );
+  filter: blur(7px);
+}
+
+/* ── Liseré : l'arc net qui borde le dôme. Sans lui, la source se lit
+   comme une tache diffuse au lieu d'un corps lumineux. ─────────────── */
+.p-rim {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 30px rgba(216, 160, 255, 0.4);
+  filter: blur(9px);
+}
+
+/* ── Filament : le trait chaud posé exactement sur l'arête du panneau ── */
+.p-filament {
+  background: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(248, 236, 255, 0.92) 18%,
+    rgba(216, 160, 255, 0.6) 42%,
+    rgba(192, 105, 238, 0.24) 64%,
+    transparent 82%
+  );
+  filter: blur(3px);
+}
+
+/* ── Fuite de lumière à travers le haut du panneau ───────────────────── */
+.p-bleed {
+  background: radial-gradient(
+    ellipse 46% 60% at 50% 0%,
+    rgba(214, 150, 255, 0.5) 0%,
+    rgba(140, 55, 210, 0.26) 36%,
+    rgba(89, 2, 147, 0.1) 58%,
+    transparent 74%
+  );
+  filter: blur(26px);
+}
+
+/* ── Barre de navigation en pilule ───────────────────────────────────── */
+.p-navpill {
+  background: var(--p-fill);
+  border: 1px solid var(--p-line);
+}
+
+.p-navlink {
+  color: var(--p-text-dim);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.p-navlink:hover {
+  background: var(--p-fill-hover);
+  color: var(--p-text);
+}
+
+/* ── Le panneau applicatif : coupé par le bas du viewport ────────────── */
+.p-panel {
+  background: linear-gradient(to bottom, #16102a 0%, var(--p-panel) 42%);
+  border: 1px solid var(--p-line);
+  border-bottom: none;
+}
+
+.p-cta {
+  background: var(--p-ink);
+  color: var(--p-text);
+  border: 1px solid rgba(192, 105, 238, 0.45);
+  box-shadow: 0 6px 26px rgba(89, 2, 147, 0.55);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+.p-cta:hover {
+  background: var(--p-ink-hover);
+  box-shadow: 0 8px 32px rgba(89, 2, 147, 0.75);
+}
+
+[data-surface="portal"] :focus-visible {
+  outline: 2px solid var(--p-violet);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-surface="portal"] * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ── Simulateur de coût (/dev-v2) ─────────────────────────────────────
+   Reproduction de la référence. Toutes les couleurs passent par les tokens
+   du monde portail : la piste et le pouce du slider n'utilisent que les
+   deux violets contractuels (--p-ink, --p-violet), pas un troisième.    */
+.p-sim {
+  background: linear-gradient(158deg, var(--p-sim-top) 0%, var(--p-sim-bottom) 100%);
+  border: 1px solid var(--p-line);
+}
+
+.p-sim-glow {
+  background: radial-gradient(
+    ellipse 60% 70% at 100% 50%,
+    rgba(216, 160, 255, 0.75) 0%,
+    rgba(192, 105, 238, 0.4) 35%,
+    rgba(89, 2, 147, 0.15) 62%,
+    transparent 80%
+  );
+  filter: blur(22px);
+}
+
+.p-sim-field {
+  background: var(--p-fill);
+  border: 1px solid var(--p-line);
+}
+
+/* Menu du select personnalisé — opaque, sinon la carte se lit à travers. */
+.p-sim-menu {
+  background: var(--p-sim-bottom);
+  border: 1px solid var(--p-line);
+  box-shadow: 0 18px 44px var(--p-shadow);
+}
+
+.p-sim-result {
+  background: linear-gradient(150deg, var(--p-sim-top) 0%, var(--p-sim-accent) 100%);
+  border: 1px solid var(--p-line-soft);
+}
+
+.p-sim-result-glow {
+  background: radial-gradient(
+    ellipse 55% 100% at 62% 118%,
+    rgba(216, 160, 255, 0.6) 0%,
+    rgba(150, 60, 220, 0.3) 40%,
+    transparent 72%
+  );
+  filter: blur(18px);
+}
+
+/* ── Piste et pouce du slider ─────────────────────────────────────────
+   La partie remplie est peinte en background-size, pilotée depuis le
+   composant via --p-fill-pct : un input range ne sait pas colorer sa
+   partie gauche autrement.                                              */
+.p-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, var(--p-ink) 0%, var(--p-violet) 100%) 0 0 / var(--p-fill-pct, 50%) 100% no-repeat,
+    var(--p-line-soft);
+  outline: none;
+  cursor: pointer;
+}
+.p-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  background: var(--p-ink);
+  border: 2.5px solid var(--p-text);
+  box-shadow: 0 2px 8px var(--p-shadow);
+  cursor: grab;
+}
+.p-range::-webkit-slider-thumb:active {
+  cursor: grabbing;
+}
+.p-range::-moz-range-thumb {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  background: var(--p-ink);
+  border: 2.5px solid var(--p-text);
+  box-shadow: 0 2px 8px var(--p-shadow);
+  cursor: grab;
+}
+.p-range:focus-visible {
+  outline: 2px solid var(--p-violet);
+  outline-offset: 4px;
+}
+
+
+/* ── Mur des retours (/dev-v2) ────────────────────────────────────────
+   Deux rangées qui défilent en sens inverse. La piste contient la liste
+   deux fois : la translation de -50% ramène exactement au point de départ,
+   d'où une boucle sans raccord visible.                                 */
+@keyframes pMarqueeLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes pMarqueeRight {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.p-track {
+  display: flex;
+  width: max-content;
+  /* Pas de `gap` : avec 8 cartes il n'y a que 7 espacements, la moitié de la
+     piste ne vaut donc pas un jeu complet + son espacement, et la boucle
+     saute de 10px à chaque tour. La marge par carte rend les deux moitiés
+     rigoureusement égales. */
+  animation-name: pMarqueeLeft;
+  animation-duration: var(--p-speed, 70s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.p-track--rev {
+  animation-name: pMarqueeRight;
+}
+
+/* Le survol suspend le défilement : sans ça, une carte devient illisible
+   dès qu'on essaie de la lire. */
+.p-marquee:hover .p-track {
+  animation-play-state: paused;
+}
+
+/* Extinction des deux bords : les cartes entrent et sortent au lieu d'être
+   coupées net par le bord du viewport. */
+.p-marquee {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%);
+}
+
+.p-quote {
+  margin-right: 20px;
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.022) 100%);
+  border: 1px solid var(--p-line);
+}
+
+/* Dôme diffus derrière le titre de section. */
+.p-dome {
+  background: radial-gradient(
+    ellipse 46% 58% at 50% 42%,
+    rgba(150, 90, 220, 0.24) 0%,
+    rgba(110, 40, 180, 0.13) 38%,
+    rgba(89, 2, 147, 0.05) 60%,
+    transparent 78%
+  );
+  filter: blur(40px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-track {
+    animation: none;
+  }
+}
+
+/* ── Flèche du process : lumière animée (/dev-v2) ─────────────────────
+   Le corps de la flèche n'est jamais animé : seuls le halo, le cœur, les
+   rayons et un reflet qui court le long des arêtes le sont. Si les
+   animations ne tournent pas, la forme reste exactement telle qu'elle est
+   dessinée — le mouvement est un ajout, jamais une condition de lisibilité.
+   ─────────────────────────────────────────────────────────────────────── */
+
+@keyframes psHalo {
+  0%, 100% { opacity: 0.42; }
+  50% { opacity: 0.72; }
+}
+@keyframes psCore {
+  0%, 100% { opacity: 0.8; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes psRays {
+  0%, 100% { opacity: 0.32; }
+  50% { opacity: 0.62; }
+}
+/* Le reflet : un segment de trait qui remonte l'arête. C'est lui qui donne
+   la lecture « matière aspirée le long du bord », comme un disque
+   d'accrétion. dashoffset décroissant = le segment monte vers la pointe. */
+@keyframes psSheen {
+  0% { stroke-dashoffset: 620; opacity: 0; }
+  12% { opacity: 0.9; }
+  70% { opacity: 0.55; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.ps-halo { animation: psHalo 7s ease-in-out infinite; }
+.ps-core {
+  animation: psCore 5.5s ease-in-out infinite;
+  transform-origin: 480px 404px;
+  transform-box: view-box;
+}
+.ps-rays { animation: psRays 6.5s ease-in-out infinite; }
+.ps-sheen {
+  stroke-dasharray: 70 560;
+  stroke-dashoffset: 620;
+  opacity: 0;
+  animation: psSheen 4.2s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+}
+.ps-sheen--b { animation-delay: 2.1s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-halo, .ps-core, .ps-rays, .ps-sheen { animation: none; }
+  .ps-sheen { opacity: 0; }
+}
+
+/* ── Bordure néon du formulaire de réservation (/dev-v2) ──────────────
+   La classe se pose sur un CONTENEUR, pas sur la carte : ses deux
+   pseudo-éléments dessinent le dégradé conique qui tourne, et la carte —
+   positionnée, donc peinte après eux — vient les recouvrir avec son fond
+   opaque. Il ne reste visible que le débord : une bordure lumineuse.
+
+   Surtout PAS de z-index négatif ici. `relative` seul ne crée pas de
+   contexte d'empilement, donc une couche en z-index -1 remonterait
+   jusqu'à la racine et passerait sous le fond opaque de la section —
+   invisible. L'ordre de peinture DOM suffit et reste robuste.
+
+   ::before donne le filet net sur l'arête, ::after la même forme floutée
+   et débordante pour la diffusion. La carte garde sa propre bordure : si
+   l'animation ne tourne pas, le panneau reste lisible tel quel — le néon
+   est un ajout, jamais une condition de lisibilité.
+   ─────────────────────────────────────────────────────────────────────── */
+
+@property --p-glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes pGlowSpin {
+  to { --p-glow-angle: 360deg; }
+}
+
+.p-formglow::before,
+.p-formglow::after {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--p-glow-angle),
+    rgba(89, 2, 147, 0) 0%,
+    #590293 12%,
+    #c069ee 26%,
+    #f3e2ff 34%,
+    #c069ee 42%,
+    #590293 56%,
+    rgba(89, 2, 147, 0) 72%,
+    rgba(89, 2, 147, 0) 100%
+  );
+  animation: pGlowSpin 6s linear infinite;
+}
+
+/* Couche de diffusion : même dégradé, débord plus large et flouté. */
+.p-formglow::after {
+  inset: -10px;
+  filter: blur(18px);
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-formglow::before,
+  .p-formglow::after { animation: none; }
+}

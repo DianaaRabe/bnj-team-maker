@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Work_Sans } from "next/font/google";
+import { DM_Sans, Work_Sans, Archivo } from "next/font/google";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -16,6 +16,15 @@ const workSans = Work_Sans({
   display: "swap",
 });
 
+// « Le Dossier » (/dev) : Archivo pour la frappe et le corps, DM Sans pour la
+// couche de saisie — références, TJM, tampons, entrées de champ.
+const archivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "BNJ Team Maker",
   description: "Talents francophones qualifiés pour scaler votre équipe rapidement.",
@@ -27,7 +36,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${dmSans.variable} ${workSans.variable}`} style={{ fontFamily: "var(--font-dm-sans, 'DM Sans', system-ui, sans-serif)" }}>
+    <html
+      lang="fr"
+      className={`${dmSans.variable} ${workSans.variable} ${archivo.variable}`}
+      style={{ fontFamily: "var(--font-dm-sans, 'DM Sans', system-ui, sans-serif)" }}
+    >
       <body
         className="min-h-full flex flex-col bg-[#08050f] text-[#f0ecf8] antialiased"
         style={{ fontFamily: "inherit" }}

@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-06T00:00:00.000Z",
+  "title": "Design System: Le Dossier — BNJ /dev",
+  "extensions": {
+    "scope": "Applies to the /dev surface only, opted in via [data-surface=\"dossier\"]. The /sdr, /rh and CMS routes run an unrelated legacy dark theme; neither system governs the repo.",
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Stamp Ink Violet",
+        "canonical": "#590293",
+        "tonalRamp": ["#0f0119", "#1d0230", "#2b0748", "#40016b", "#590293", "#7a2bb3", "#a06ecd", "#d3bfe6"]
+      },
+      "ink-deep": {
+        "role": "primary",
+        "displayName": "Ink Deep",
+        "canonical": "#2b0748",
+        "tonalRamp": ["#0a0212", "#150425", "#2b0748", "#3f0a6b", "#54118f", "#7434b5", "#a274d3", "#d5c2ea"]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Index Tab Gold",
+        "canonical": "#feb527",
+        "tonalRamp": ["#3a2600", "#5c3d00", "#8a5c00", "#b87c00", "#feb527", "#ffc84f", "#ffdc93", "#fff1d1"]
+      },
+      "violet-2": {
+        "role": "tertiary",
+        "displayName": "Violet Clair (contractual, currently unused)",
+        "canonical": "#c069ee",
+        "tonalRamp": ["#1c0a26", "#33124a", "#4c1a70", "#6c2a9e", "#8f42c6", "#c069ee", "#dba8f5", "#f0dcfb"]
+      },
+      "stock": {
+        "role": "neutral",
+        "displayName": "Folder Stock",
+        "canonical": "#eceaf1",
+        "tonalRamp": ["#191721", "#2b2836", "#45414f", "#625d70", "#8a8497", "#b3adbf", "#d5cee2", "#eceaf1"]
+      },
+      "stock-fiche": {
+        "role": "neutral",
+        "displayName": "Fiche Stock",
+        "canonical": "#f4f2f7",
+        "tonalRamp": ["#1c1a23", "#302d3a", "#4a4657", "#6b6579", "#948da3", "#bdb7c8", "#dcd7e5", "#f4f2f7"]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Dossier Text",
+        "canonical": "#1c0b2e",
+        "tonalRamp": ["#0b0413", "#1c0b2e", "#2f1449", "#452066", "#5f3b80", "#8368a1", "#ad9bc2", "#d8cfe3"]
+      },
+      "text-2": {
+        "role": "neutral",
+        "displayName": "Dossier Text Secondary",
+        "canonical": "#4a3d5c",
+        "tonalRamp": ["#141019", "#231d2c", "#372e45", "#4a3d5c", "#665879", "#8b7d9d", "#b3a8c6", "#ddd6e6"]
+      },
+      "rule-muted": {
+        "role": "neutral",
+        "displayName": "Rule Muted",
+        "canonical": "#7f6f99",
+        "tonalRamp": ["#16131b", "#28222f", "#3d3548", "#564a67", "#7f6f99", "#9d90b1", "#c0b7cf", "#e2dde9"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display (Struck)",
+        "purpose": "The cover H1 only, one per page.",
+        "steps": [{ "at": "base", "fontSize": "2.25rem" }, { "at": "sm", "fontSize": "3.4rem" }, { "at": "md", "fontSize": "4.2rem" }, { "at": "xl", "fontSize": "4.9rem" }]
+      },
+      "headline": {
+        "displayName": "Headline (Struck)",
+        "purpose": "Section H2s and closing titles. Three ladders in use, one per host; do not mix them.",
+        "ladders": {
+          "piece-head": [{ "at": "base", "fontSize": "2rem" }, { "at": "sm", "fontSize": "2.6rem" }, { "at": "md", "fontSize": "3.2rem" }],
+          "note": [{ "at": "base", "fontSize": "2rem" }, { "at": "sm", "fontSize": "2.7rem" }, { "at": "md", "fontSize": "3.2rem" }],
+          "cloture": [{ "at": "base", "fontSize": "2rem" }, { "at": "sm", "fontSize": "2.7rem" }, { "at": "md", "fontSize": "3.4rem" }]
+        }
+      },
+      "headline-compact": {
+        "displayName": "Headline Compact (Struck)",
+        "purpose": "PieceHead size=\"compact\", for a headline set in a narrow column.",
+        "steps": [{ "at": "base", "fontSize": "1.75rem" }, { "at": "sm", "fontSize": "2.1rem" }, { "at": "md", "fontSize": "2.35rem" }]
+      },
+      "headline-overlay": {
+        "displayName": "Headline Overlay (Struck)",
+        "purpose": "The modal's booking title. No steps.",
+        "steps": [{ "at": "base", "fontSize": "1.7rem" }]
+      },
+      "title": {
+        "displayName": "Title (Struck)",
+        "purpose": "H3s and named entities. Fixed steps chosen by host, not a ladder.",
+        "steps": [
+          { "at": "base", "fontSize": "0.95rem", "host": "modal header counter" },
+          { "at": "base", "fontSize": "0.98rem", "host": "registre row, cover fiche name" },
+          { "at": "base", "fontSize": "1rem", "host": "process step" },
+          { "at": "base", "fontSize": "1.05rem", "host": "constat row, fiche name" },
+          { "at": "md", "fontSize": "1.25rem", "host": "constat row only" },
+          { "at": "base", "fontSize": "1.2rem", "host": "modal profile name" }
+        ]
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Bordereau statistics in ink; Note metrics in gold.",
+        "steps": [{ "at": "base", "fontSize": "1.8rem" }, { "at": "md", "fontSize": "2.4rem" }, { "at": "base", "fontSize": "1.5rem", "host": "Note metric" }]
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "The paragraph under a headline, capped at max-w-xl.",
+        "steps": [{ "at": "base", "fontSize": "0.95rem", "host": "PieceHead" }, { "at": "base", "fontSize": "0.98rem", "host": "cover exposé, Clôture subtitle" }, { "at": "base", "fontSize": "1rem", "host": "Note body" }]
+      },
+      "annotation": {
+        "displayName": "Annotation",
+        "purpose": "The constat's closing statement — the one paragraph set above body size.",
+        "steps": [{ "at": "base", "fontSize": "1.02rem" }, { "at": "md", "fontSize": "1.15rem" }]
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Ledger row prose, FAQ answers, fiche highlights. Capped at max-w-2xl.",
+        "steps": [
+          { "at": "base", "fontSize": "0.8rem", "host": "fiche highlights" },
+          { "at": "base", "fontSize": "0.82rem", "host": "checked box" },
+          { "at": "base", "fontSize": "0.84rem", "host": "modal highlights" },
+          { "at": "base", "fontSize": "0.88rem", "host": "registre and process rows" },
+          { "at": "base", "fontSize": "0.9rem", "host": "constat rows, FAQ answers, Note proof, modal booking copy" }
+        ]
+      },
+      "question": { "displayName": "Question", "purpose": "The FAQ trigger.", "steps": [{ "at": "base", "fontSize": "0.95rem" }] },
+      "stat-label": { "displayName": "Stat Label", "purpose": "The bordereau dt under a figure.", "steps": [{ "at": "base", "fontSize": "0.78rem" }] },
+      "action": {
+        "displayName": "Action (Typed)",
+        "purpose": "Every button and CTA label. Five fixed steps by host.",
+        "steps": [
+          { "at": "base", "fontSize": "0.66rem", "host": "header" },
+          { "at": "base", "fontSize": "0.68rem", "host": "dashed tear-off, fiche Détail text action" },
+          { "at": "base", "fontSize": "0.72rem", "host": "vivier button, modal footer button" },
+          { "at": "base", "fontSize": "0.76rem", "host": "cover, Note, modal booking" },
+          { "at": "base", "fontSize": "0.78rem", "host": "Clôture" }
+        ]
+      },
+      "stamp": {
+        "displayName": "Stamp (Typed)",
+        "purpose": "Stamp contents only. The cover's solid accent stamp is the one permitted override, at ls 0.06em.",
+        "steps": [{ "at": "base", "fontSize": "0.62rem" }, { "at": "md", "fontSize": "0.68rem" }],
+        "override": { "host": "cover accent stamp", "steps": [{ "at": "base", "fontSize": "1rem" }, { "at": "sm", "fontSize": "1.3rem" }, { "at": "md", "fontSize": "1.55rem" }] }
+      },
+      "label": {
+        "displayName": "Label (Typed)",
+        "purpose": "Cartouche entries, field intitulés, section markers, footnotes. Tracking rises as size falls (0.08em → 0.18em).",
+        "steps": [
+          { "at": "base", "fontSize": "0.58rem" },
+          { "at": "base", "fontSize": "0.6rem" },
+          { "at": "base", "fontSize": "0.62rem" },
+          { "at": "base", "fontSize": "0.64rem" },
+          { "at": "base", "fontSize": "0.68rem", "host": "PieceHead filing coordinate" }
+        ]
+      },
+      "typed": {
+        "displayName": "Typed Data",
+        "purpose": "Field values, roles, skill lists, references — what a clerk entered into the form.",
+        "steps": [
+          { "at": "base", "fontSize": "0.66rem", "host": "candidate experience, footer" },
+          { "at": "base", "fontSize": "0.7rem", "host": "modal role" },
+          { "at": "base", "fontSize": "0.72rem", "host": "cover fiche role" },
+          { "at": "base", "fontSize": "0.76rem", "host": "fiche skills, process closing line" },
+          { "at": "base", "fontSize": "0.78rem", "host": "skill names, mobile nav rows" },
+          { "at": "base", "fontSize": "0.8rem", "host": "field rows, modal skills" },
+          { "at": "base", "fontSize": "0.86rem", "host": "cover day rate, process step number" }
+        ]
+      },
+      "chip": { "displayName": "Chip (Typed)", "purpose": "Availability chips.", "steps": [{ "at": "base", "fontSize": "0.58rem" }] },
+      "pagination": { "displayName": "Pagination (Typed)", "purpose": "Modal page cells.", "steps": [{ "at": "base", "fontSize": "0.6rem" }] },
+      "tab": { "displayName": "Tab (Typed)", "purpose": "Index tab labels, set once in .d-tab and never overridden.", "steps": [{ "at": "base", "fontSize": "0.68rem" }] },
+      "seal": { "displayName": "Seal (SVG units)", "purpose": "The closing seal is the only type sized in SVG user units on a 160-unit viewBox: 21 (struck 'Dossier ouvert'), 9 (arc legend), 8.5 (reference line). Scale the seal by its box, never by restyling these numbers." }
+    },
+    "shadows": [
+      { "name": "document-plane", "value": "none", "purpose": "Everything filed in the dossier — section, panel, fiche, card, button, chip, header — casts nothing. Depth comes from stock tone stepping (#eceaf1 / #e3dfea / #f4f2f7), ruled ink weight (1px / 1.5px / 2px), and one full-bleed ink region per page." },
+      { "name": "overlay-lift", "value": "0 18px 44px rgba(43,7,72,0.3)", "purpose": "The one plane above the document: the consultation modal. Zero horizontal offset, 44px blur, no spread, tinted ink-deep rather than black. Any future overlay uses this exact value; nothing in the document plane uses it at all. Hard offset block shadows (Npx Npx 0) remain banned everywhere, overlay included." }
+    ],
+    "motion": [
+      { "name": "ease-lift", "value": "cubic-bezier(0.2, 0.7, 0.3, 1)", "purpose": "The Lift reveal: 10px rise + fade over 0.5s, played on intersection." },
+      { "name": "ease-stamp", "value": "cubic-bezier(0.2, 0.9, 0.3, 1)", "purpose": "The stamp-down: scale 1.14 → 0.985 → 1 over 0.34s, once on entry, never on hover." },
+      { "name": "ease-panel", "value": "cubic-bezier(0.2, 0.8, 0.3, 1)", "purpose": "Modal panel entry, 0.24s. Scrim fades at 0.18s linear." },
+      { "name": "state-fast", "value": "0.12s linear", "purpose": "Action background/colour state change (.d-action)." },
+      { "name": "state-tab", "value": "0.14s linear", "purpose": "Index tab background/colour state change (.d-tab)." },
+      { "name": "reveal-margin", "value": "0px 0px -8% 0px", "purpose": "IntersectionObserver rootMargin for every reveal." },
+      { "name": "rotation-table", "value": "-2.1, 1.4, -1.2, 2.3, -0.8, 1.9, -2.6, 0.9 (deg)", "purpose": "Fixed tilt angles indexed modulo via rotFor(i) in atoms.tsx. Never randomise — server and client must agree." },
+      { "name": "reduced-motion", "value": "animation-duration: 0.001ms; transition-duration: 0.001ms", "purpose": "Under prefers-reduced-motion the surface and modal collapse all motion, and armed reveals reset to visible." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ],
+    "containers": [
+      { "name": "page", "value": "1180px" },
+      { "name": "narrow", "value": "900px" },
+      { "name": "modal", "value": "560px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action (Gold Tab)",
+      "kind": "button",
+      "refersTo": "action-gold",
+      "description": "The sole conversion: books the 30-minute Calendly call. Cut from index-tab stock.",
+      "html": "<a class=\"ds-action\" href=\"#\">Réserver un appel de 30 min<svg class=\"ds-arrow\" viewBox=\"0 0 20 10\" fill=\"none\" aria-hidden=\"true\"><path d=\"M0 5h18M14 1l4 4-4 4\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"square\"/></svg></a>",
+      "css": ".ds-action { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; background: #feb527; color: #2b0748; border: 1.5px solid #2b0748; border-radius: 0; padding: 16px 28px; transition: background 0.12s linear, color 0.12s linear; } .ds-action:hover { background: #ffc84f; } .ds-action:active { background: #e9a411; } .ds-action:focus-visible { outline: 2px solid #590293; outline-offset: 2px; } .ds-arrow { width: 18px; height: 9px; flex-shrink: 0; }"
+    },
+    {
+      "name": "Secondary Action (Outline Ink)",
+      "kind": "button",
+      "refersTo": "action-ink",
+      "description": "The on-ramp: opens the fiches consultation modal. Outline, never a solid violet slab — a filled ink button outweighs gold and steals primacy from the conversion.",
+      "html": "<button class=\"ds-action-ink\" type=\"button\">Consulter les fiches</button>",
+      "css": ".ds-action-ink { display: inline-flex; align-items: center; justify-content: center; font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.1em; background: transparent; color: #590293; border: 1.5px solid #590293; border-radius: 0; padding: 16px 28px; cursor: pointer; transition: background 0.12s linear, color 0.12s linear; } .ds-action-ink:hover { background: #590293; color: #eceaf1; } .ds-action-ink:active { background: #47027a; color: #eceaf1; } .ds-action-ink:focus-visible { outline: 2px solid #590293; outline-offset: 2px; }"
+    },
+    {
+      "name": "Stamp (Outline)",
+      "kind": "custom",
+      "refersTo": "stamp-outline",
+      "description": "The signature mark. Laid at a fixed angle from the rotation table, with an feTurbulence alpha mask breaking the ink density so it never reads as a perfect digital fill.",
+      "html": "<span class=\"ds-stamp\">Disponible</span>",
+      "css": ".ds-stamp { display: inline-block; font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700; font-size: 0.62rem; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.14em; color: #590293; background: transparent; border: 2px solid #590293; border-radius: 0; padding: 0.28em 0.6em 0.24em; transform: rotate(-2.1deg); -webkit-mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='90'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.42 0 0 0 0.58'/%3E%3C/filter%3E%3Crect width='220' height='90' filter='url(%23i)'/%3E%3C/svg%3E\"); mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='90'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.42 0 0 0 0.58'/%3E%3C/filter%3E%3Crect width='220' height='90' filter='url(%23i)'/%3E%3C/svg%3E\"); -webkit-mask-size: 220px 90px; mask-size: 220px 90px; }"
+    },
+    {
+      "name": "Stamp (Solid)",
+      "kind": "custom",
+      "refersTo": "stamp-solid",
+      "description": "The struck accent line under the cover headline and the closing verdict of a section. Ink ground, folder-stock text.",
+      "html": "<span class=\"ds-stamp-solid\">C'est exactement ce que fait BNJ</span>",
+      "css": ".ds-stamp-solid { display: inline-block; font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700; font-size: 0.68rem; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.14em; color: #eceaf1; background: #590293; border: 2px solid #590293; border-radius: 0; padding: 0.28em 0.6em 0.24em; transform: rotate(-1.2deg); -webkit-mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='90'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.42 0 0 0 0.58'/%3E%3C/filter%3E%3Crect width='220' height='90' filter='url(%23i)'/%3E%3C/svg%3E\"); mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='90'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.42 0 0 0 0.58'/%3E%3C/filter%3E%3Crect width='220' height='90' filter='url(%23i)'/%3E%3C/svg%3E\"); -webkit-mask-size: 220px 90px; mask-size: 220px 90px; }"
+    },
+    {
+      "name": "Index Tab",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "Section navigation as chamfered folder tabs seated on the header rule. Active tab is cut from gold stock.",
+      "html": "<nav class=\"ds-tabs\" aria-label=\"Sections du dossier\"><a class=\"ds-tab\" href=\"#\">Constat</a><a class=\"ds-tab\" href=\"#\" aria-current=\"true\">Vivier</a><a class=\"ds-tab\" href=\"#\">Fiches</a></nav>",
+      "css": ".ds-tabs { display: flex; align-items: flex-end; gap: 4px; border-bottom: 1px solid #d5cee2; background: #eceaf1; padding: 0 8px; } .ds-tab { font-family: 'DM Sans', system-ui, sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; background: #e3dfea; border: 1px solid #d5cee2; border-bottom: none; border-radius: 0; color: #4a3d5c; padding: 8px 13.6px 7.2px; clip-path: polygon(0 100%, 6px 0, calc(100% - 6px) 0, 100% 100%); transition: background 0.14s linear, color 0.14s linear; } .ds-tab:hover { background: #d5cee2; } .ds-tab[aria-current=\"true\"] { background: #feb527; border-color: #feb527; color: #2b0748; font-weight: 700; } .ds-tab:focus-visible { outline: 2px solid #590293; outline-offset: 2px; }"
+    },
+    {
+      "name": "Fiche (Talent Card)",
+      "kind": "card",
+      "refersTo": "fiche",
+      "description": "The only true card in the system. Index-card stock one step lighter than the page, structured by ink register rules at head and foot — no side accent bar, no shadow, no radius.",
+      "html": "<article class=\"ds-fiche\"><div class=\"ds-fiche-head\"><div><h3 class=\"ds-fiche-name\">Anthonio A.</h3><p class=\"ds-fiche-role\">Développeur Front-End</p></div></div><div class=\"ds-fiche-body\"><div class=\"ds-row\"><span class=\"ds-row-label\">Réf.</span><span class=\"ds-leader\"></span><span class=\"ds-row-value\">DEV-1</span></div><div class=\"ds-row\"><span class=\"ds-row-label\">TJM</span><span class=\"ds-leader\"></span><span class=\"ds-row-value ds-row-value--strong\">132€/j</span></div></div><div class=\"ds-fiche-foot\"><span class=\"ds-fiche-status\">Disponible</span><button class=\"ds-fiche-detail\" type=\"button\">Détail</button></div></article>",
+      "css": ".ds-fiche { display: flex; flex-direction: column; background: #f4f2f7; border: 1px solid #d5cee2; border-radius: 0; color: #1c0b2e; } .ds-fiche-head { border-bottom: 1.5px solid #590293; padding: 20px; } .ds-fiche-name { font-family: Archivo, system-ui, sans-serif; font-weight: 900; font-size: 1.05rem; line-height: 0.94; letter-spacing: -0.01em; text-transform: uppercase; margin: 0; color: #1c0b2e; } .ds-fiche-role { font-family: 'DM Sans', system-ui, sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: #4a3d5c; margin: 4px 0 0; } .ds-fiche-body { padding: 20px; display: flex; flex-direction: column; gap: 8px; } .ds-row { display: flex; align-items: flex-start; gap: 4px; font-size: 0.8rem; } .ds-row-label { font-family: 'DM Sans', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 0.08em; color: #4a3d5c; white-space: nowrap; } .ds-leader { flex: 1; align-self: flex-end; margin: 0 0.6rem 0.32em; border-bottom: 1px dotted #b3a8c6; min-width: 1.5rem; } .ds-row-value { font-family: 'DM Sans', system-ui, sans-serif; max-width: 62%; text-align: right; color: #1c0b2e; } .ds-row-value--strong { font-weight: 700; color: #590293; } .ds-fiche-foot { display: flex; align-items: center; justify-content: space-between; border-top: 1.5px solid #590293; padding: 14px 20px; } .ds-fiche-status { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: #590293; border: 2px solid #590293; padding: 0.28em 0.6em 0.24em; transform: rotate(1.4deg); } .ds-fiche-detail { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; background: none; border: none; color: #590293; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; padding: 0; }"
+    },
+    {
+      "name": "Field Row",
+      "kind": "custom",
+      "refersTo": "field-row",
+      "description": "The signature data primitive: typed label, dotted leader, right-aligned typed value. The leader lives in its own single-line box so a wrapping value never drags an orphan dotted trail beneath it. The strong variant is reserved for the day rate.",
+      "html": "<div class=\"ds-field\"><span class=\"ds-field-left\"><span class=\"ds-field-label\">Expérience</span><span class=\"ds-field-leader\" aria-hidden=\"true\"></span></span><span class=\"ds-field-value ds-field-value--strong\">10 ans d'expérience</span></div>",
+      "css": ".ds-field { display: flex; align-items: flex-start; gap: 4px; font-size: 0.8rem; } .ds-field-left { display: flex; flex: 1; min-width: 0; align-items: baseline; } .ds-field-label { font-family: 'DM Sans', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 0.08em; color: #4a3d5c; white-space: nowrap; } .ds-field-leader { flex: 1; align-self: flex-end; margin: 0 0.6rem 0.32em; border-bottom: 1px dotted #b3a8c6; min-width: 1.5rem; } .ds-field-value { font-family: 'DM Sans', system-ui, sans-serif; max-width: 62%; text-align: right; color: #1c0b2e; } .ds-field-value--strong { font-weight: 700; color: #590293; }"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "refersTo": "status-chip",
+      "description": "Availability marker. Outline only — a filled chip would read as a stamp. Ink border when available, muted #7f6f99 (4.07:1 on fiche stock) otherwise.",
+      "html": "<span class=\"ds-chip\">Disponible</span> <span class=\"ds-chip ds-chip--muted\">Bientôt disponible</span>",
+      "css": ".ds-chip { display: inline-block; font-family: 'DM Sans', system-ui, sans-serif; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; background: transparent; border: 1px solid #590293; border-radius: 0; color: #590293; padding: 2px 6px; } .ds-chip--muted { border-color: #7f6f99; color: #4a3d5c; }"
+    },
+    {
+      "name": "Checked Box",
+      "kind": "custom",
+      "refersTo": "checked-box",
+      "description": "Guarantee line as a ticked form box. The tick is a drawn SVG at square cap — never a unicode glyph, because a ✕ beside a guarantee reads as a refusal.",
+      "html": "<span class=\"ds-check\"><span class=\"ds-check-box\" aria-hidden=\"true\"><svg viewBox=\"0 0 12 12\" fill=\"none\"><path d=\"M1.6 6.3 4.4 9.2 10.4 2.6\" stroke=\"#590293\" stroke-width=\"2\" stroke-linecap=\"square\"/></svg></span>Premiers profils sous 48h</span>",
+      "css": ".ds-check { display: flex; align-items: flex-start; gap: 10px; font-family: Archivo, system-ui, sans-serif; font-size: 0.82rem; line-height: 1.5; color: #4a3d5c; } .ds-check-box { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 15px; height: 15px; margin-top: 4px; border: 1.5px solid #590293; border-radius: 0; } .ds-check-box svg { width: 11px; height: 11px; }"
+    },
+    {
+      "name": "Ledger Row",
+      "kind": "custom",
+      "refersTo": "ledger-row",
+      "description": "How comparable items are presented: a ruled table opened by a 1.5px ink register rule with 1px hairlines between rows. No box, no background, no shadow per item. Cards are reserved for fiches.",
+      "html": "<ul class=\"ds-ledger\"><li class=\"ds-ledger-row\"><h3 class=\"ds-ledger-title\">Profils testés &amp; validés</h3><p class=\"ds-ledger-body\">Tests techniques, entretiens comportementaux, vérification des références.</p></li><li class=\"ds-ledger-row\"><h3 class=\"ds-ledger-title\">Recrutement en 7 jours</h3><p class=\"ds-ledger-body\">Notre ATS de 8 000+ candidats pré-qualifiés permet de proposer des profils en 48h.</p></li></ul>",
+      "css": ".ds-ledger { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid #590293; } .ds-ledger-row { border-bottom: 1px solid #d5cee2; padding: 24px 0; } .ds-ledger-title { font-family: Archivo, system-ui, sans-serif; font-weight: 900; font-size: 1.05rem; line-height: 0.94; letter-spacing: -0.01em; text-transform: uppercase; color: #1c0b2e; margin: 0; } .ds-ledger-body { font-family: Archivo, system-ui, sans-serif; font-size: 0.9rem; line-height: 1.8; color: #4a3d5c; margin: 8px 0 0; max-width: 42em; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le Dossier",
+    "overview": "This is not a page about a talent pool; it is the dossier itself — already assembled, already referenced DEV-2026, already stamped. Everything on screen is a real artefact of French administrative paperwork: pale folder stock, violet stamp ink, gold index tabs, form rules, dotted leaders between a field label and its value, a perforated filing margin, a ruled bordereau, and a closing seal. The reader is not being sold a service; they are being handed a file that exists.\n\nThe material logic is strict and it does all the work. Stock is card, not screen: three steps of pale violet-grey paper, flat, opaque, never translucent. Ink is ink: violet #590293 prints — it draws rules, fills whole regions, strokes SVG paths, sets type — but it never glows, blurs, or fades into a gradient. Gold #feb527 is index-tab stock: it is the material an active tab and the one conversion action are cut from, nothing else. Density irregularity in the stamps comes from a shared feTurbulence alpha mask, because a perfect flat fill reads as digital print and breaks the conceit.\n\nThe world defines itself as much by refusal as by material. It explicitly replaced a dark hero with blurred colour orbs, glass cards, gradient text and floating badges, and none of those devices may come back. There are no rounded corners anywhere on this surface — not a pill, not an 8px card, not a 2px input. In the document plane depth is carried by paper tone and ruled ink; a shadow is spent on one thing only, the overlay that floats above the file.",
+    "keyCharacteristics": [
+      "Zero border radius, everywhere, without exception.",
+      "Two type layers only: Archivo struck uppercase (what is printed on the form) and DM Sans, uppercase and tracked (what was entered into it).",
+      "Type steps at breakpoints and never interpolates — no clamp(), no viewport units.",
+      "Violet is stamp ink; gold is index-tab stock; nothing else carries colour.",
+      "Flat document plane — no glass, no gradient, no glow; one soft ambient shadow, reserved for the overlay.",
+      "Groups of items are ruled ledger rows, not cards in a grid.",
+      "Content is server-rendered visible; motion is armed after paint and can never hide content.",
+      "Icons are drawn SVG at a single stroke weight; no unicode glyphs stand in for marks."
+    ],
+    "rules": [
+      { "name": "The Stamp-Ink Rule", "body": "Violet is ink, not light. It may print (border, fill, stroke, type) and it may own a whole region. It may never glow, blur, gradient, or sit at partial opacity as an atmospheric wash.", "section": "colors" },
+      { "name": "The Two-Action Rule", "body": "Gold .d-action = book the 30-minute Calendly call, the sole conversion. Outline-ink .d-action--ink = consult the fiches, the on-ramp. No other colour on this surface carries an action. A new CTA either joins one of these two, or it is not a CTA.", "section": "colors" },
+      { "name": "The One Ink Region Rule", "body": "At most one full-bleed ink field per page. Inside it, gold is the only accent and hairlines become white/25 — a 1px stock-3 rule vanishes on ink. A second flooded section would turn the stamp into wallpaper.", "section": "colors" },
+      { "name": "The Contractual Triad Rule", "body": "#590293, #feb527, #c069ee are brand-binding. A contributor may change how they are used; the hex values themselves are not up for revision.", "section": "colors" },
+      { "name": "The Two-Layer Rule", "body": "Archivo for what is printed on the form, DM Sans for what is typed into it. A reference, a day rate, a date, a status, a stamp, a tab or a button label is always Courier. A heading or a paragraph of argument is always Archivo.", "section": "typography" },
+      { "name": "The Filing Coordinate Rule", "body": "The only element permitted above a heading is the piece coordinate — 'Pièce 03 · Fiches talents' — set in Courier with the number in ink and a hairline between number and label. It is a filing reference, not a marketing eyebrow. Never add an adjectival kicker above a title.", "section": "typography" },
+      { "name": "The Struck-Tight Rule", "body": "Struck headings run at line-height below 1 (0.92–0.98) with negative tracking. Never set an Archivo 900 uppercase heading at default leading — it disintegrates into a list of words instead of a printed block.", "section": "typography" },
+      { "name": "The Discrete Step Rule", "body": "Type never interpolates. Pick a role, take its listed steps, and step at sm / md / xl. Never introduce clamp(), a viewport unit, or a size that is not in the recorded list — a value between two steps has no meaning in this system and will read as drift.", "section": "typography" },
+      { "name": "The Ruled Ledger Rule", "body": "A set of comparable items is a ruled table, not a grid of cards: a 1.5px ink rule opens the list, a 1px hairline separates each row, and the rows carry no box, no background and no shadow of their own. A card is reserved for a fiche — a thing that is literally a card.", "section": "layout" },
+      { "name": "The Sticky Cartouche Rule", "body": "The header is opaque folder stock with a hairline bottom rule. Card does not become translucent when it scrolls; never give it a backdrop-filter.", "section": "layout" },
+      { "name": "The Flat Stock Rule", "body": "Surfaces in the document plane never cast. No box-shadow, no backdrop-filter, no filter: drop-shadow on a section, panel, fiche, card, button or chip — if one needs to read as raised, it changes stock tone and gains a border. Only a surface that floats above the entire dossier may take the Overlay lift, and only at that exact value.", "section": "elevation" },
+      { "name": "The No-Offset Rule", "body": "A shadow in this world is diffuse and vertical. Hard offset block shadows (Npx Npx 0, any colour, any size) are banned outright, including on the overlay: this world is administrative, not neobrutalist, and a 3px/3px offset was the single most repeated tell in the page this replaced. If a shadow is ever justified, it has zero horizontal offset, a blur radius several times its vertical offset, no spread, and an ink-deep tint.", "section": "elevation" },
+      { "name": "The Armed-Not-Hidden Rule", "body": "Content is server-rendered visible. useReveal arms the effect in a layout effect (before paint), then plays it on intersection. With no JS, no IntersectionObserver, a failed hydration, or prefers-reduced-motion, the page is fully readable and nothing is stuck at opacity 0. Never ship an element whose initial serialized state is opacity: 0.", "section": "components" }
+    ],
+    "dos": [
+      "Do scope every dossier style under [data-surface=\"dossier\"] with a .d- prefix, and put new global rules in the LE DOSSIER block at the foot of app/globals.css.",
+      "Do keep radius at exactly 0 on every new element.",
+      "Do use the three border weights with their fixed meanings: 1px #d5cee2 hairline, 1.5px #590293 register rule, 2px #590293 stamp.",
+      "Do render a set of comparable items as ruled ledger rows; reserve the card (.d-fiche) for a candidate fiche.",
+      "Do send every gold action to Calendly and every outline-ink action to the fiches modal — the Two-Action Rule admits no third colour.",
+      "Do set typed data (references, day rates, statuses, labels, button text) in DM Sans uppercase, and printed matter (headings, argument prose) in Archivo 900 uppercase.",
+      "Do ship content visible and arm reveals after paint, so the page reads with JS disabled and under prefers-reduced-motion.",
+      "Do draw new icons as SVG at 1.6–2px with strokeLinecap=\"square\".",
+      "Do take any rotation from rotFor(i) in atoms.tsx, and put ink density irregularity on new stamps via .d-inked.",
+      "Do hold the measured contrast floor: body 15.5:1, secondary 8.3:1, ink 9.5:1, ink-on-gold 9.7:1, and at least 3:1 for every non-text border."
+    ],
+    "donts": [
+      "Don't introduce glassmorphism, backdrop-filter, translucent panels, or blurred colour orbs. The only permitted blur is the 5px anonymisation on candidate photographs.",
+      "Don't put a box-shadow on anything in the document plane — sections, panels, fiches, buttons and chips get depth from stock tone and ruled ink. The single Overlay lift (0 18px 44px rgba(43,7,72,0.3)) belongs to the modal and to any future surface that floats above the whole dossier.",
+      "Don't write a hard offset block shadow (Npx Npx 0) anywhere, overlay included — this world is administrative, not neobrutalist. Shadows here are diffuse, vertical-only and ink-tinted.",
+      "Don't invent a size between two type steps, and don't reach for clamp() or a viewport unit — every legal value is listed in the Typography hierarchy.",
+      "Don't use gradients anywhere: not as backgrounds, not as borders, and never as background-clip: text.",
+      "Don't round anything — no pills, no rounded-lg cards, no soft avatars.",
+      "Don't give a card a side-tab accent bar; structure it with header and footer register rules instead.",
+      "Don't let violet glow, blur, or sit as a low-opacity atmospheric wash — it prints or it is absent.",
+      "Don't flood a second section with ink, or introduce #c069ee as a third accent.",
+      "Don't put an adjectival kicker or eyebrow above a heading; the only thing permitted there is the piece coordinate.",
+      "Don't substitute a unicode glyph for a drawn mark, and don't add an icon library.",
+      "Don't import the legacy dark-theme utilities (.bg-glass, .glow-purple, .glow-gold, .text-gradient-*, .bg-grid, .noise-overlay) into this surface — they belong to the unrelated /sdr and /rh world.",
+      "Don't randomise a rotation, a delay, or an ink pattern at render time; server and client must agree."
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { devData } from "@/lib/data/dev";
 import { PROFILES } from "@/lib/data/profiles";
-import PageWithModal from "@/components/landing/PageWithModal";
+import DossierPage from "@/components/landing/dev/DossierPage";
 
 export const metadata: Metadata = {
   title: devData.meta.title,
@@ -21,11 +21,5 @@ export const metadata: Metadata = {
 };
 
 export default function DevPage() {
-  return (
-    <PageWithModal
-      data={devData}
-      profiles={PROFILES.dev}
-      navCtaLabel="Voir les développeurs →"
-    />
-  );
+  return <DossierPage data={devData} profiles={PROFILES.dev} />;
 }

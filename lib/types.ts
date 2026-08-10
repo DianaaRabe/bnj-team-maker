@@ -71,6 +71,10 @@ export interface LandingPageData {
     headlineAccent: string;
     body: string;
     proof: string;
+    /** Chiffres du bordereau de la note. Optionnel : seule la landing /dev
+     *  les rend. Les garder ici évite qu'une même affirmation vive à deux
+     *  endroits avec deux valeurs différentes. */
+    metrics?: Stat[];
   };
   faq: FAQItem[];
   finalCTA: {
