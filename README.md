@@ -26,20 +26,11 @@ Aucun composant n'est à dupliquer.
 
 ---
 
-## ⚠ À faire en premier : révoquer les clés
+## Secrets
 
-Les identifiants Cloudflare présents dans `.env.local` **ont été transmis en clair
-dans une conversation**. Ils doivent être considérés comme compromis.
-
-Avant toute mise en production :
-
-1. Cloudflare → *My Profile* → *API Tokens* → révoquer le token existant.
-2. Cloudflare → *R2* → révoquer l'Access Key / Secret Access Key.
-3. Régénérer, puis remplacer les valeurs dans `.env.local`.
-
-Idem pour `CAL_API_KEY`, transmise dans les mêmes conditions.
-
-`.env.local` est couvert par `.gitignore` (`.env*`) : il n'est jamais versionné.
+Tous les identifiants vivent dans `.env.local`, couvert par `.gitignore`
+(`.env*`) : il n'est jamais versionné. Ne les recopier nulle part ailleurs
+dans le dépôt.
 
 ---
 
@@ -140,29 +131,58 @@ Réglages qui vivent dans le **dashboard Cal.com**, pas dans ce code :
 
 ---
 
-## Déploiement — VPS
+## Déploiement — export statique dans `bnj-sites`
 
-Les trois landings rejoignent le site déjà en production sur le VPS, sous
-`/dev`, `/rh` et `/offshore`.
+Les trois landings sont servies sur `bnjteammaker.fr/dev`, `/rh` et
+`/offshore` par **le conteneur nginx du site principal** (dépôt
+`bnj-sites`). Aucun processus Node ne tourne en production : le build
+d'export est copié dans ce dépôt et versionné avec lui.
 
-**Le rendu serveur doit rester actif.** `/api/cal/slots` en dépend pour
-garder `CAL_API_KEY` hors du navigateur, et les pages sont rendues par
-Next. Ne pas basculer le site en export statique : `next build` puis
-`next start` (ou un gestionnaire de processus type PM2), pas un simple
-dossier de fichiers.
+### Régénérer les pages
 
-Ce que le déploiement suppose côté VPS :
+```bash
+# bash
+STATIC_EXPORT=1 npm run build
+# PowerShell
+$env:STATIC_EXPORT=1; npm run build
+```
 
-1. Node 20 (voir `NODE_VERSION` dans `netlify.toml`, même exigence ici).
-2. `CAL_API_KEY` et `NEXT_PUBLIC_CAL_USERNAME` dans l'environnement du
-   processus Node. `.env.local` n'est pas versionné.
-3. Le serveur web existant (nginx/Apache) relaie `/dev`, `/rh`,
-   `/offshore`, `/_next/*`, `/api/cal/*` et `/icon.jpg` vers le processus
-   Next ; tout le reste continue d'être servi par le site actuel.
+`out/` contient alors `dev.html`, `rh.html`, `offshore.html`, leurs
+dossiers de navigation `dev/`, `rh/`, `offshore/`, plus `_next/` et
+`icon.jpg`. On copie **tout cela** à la racine de `bnj-sites`, en
+écrasant la version précédente — et **rien d'autre** : `404.html` et
+`_not-found/` ne doivent pas y aller, ils écraseraient la page d'erreur
+du site.
 
-> ⚠ Les chemins `/_next/*` et `/api/cal/*` sont indispensables : sans le
-> premier les pages s'affichent sans styles ni JavaScript, sans le second
-> le panneau de réservation part en erreur.
+```bash
+SRC=../bnj-landing/out
+rm -rf _next dev rh offshore
+cp -r $SRC/_next .
+for p in dev rh offshore; do cp -r $SRC/$p .; cp $SRC/$p.html .; cp $SRC/$p.txt .; done
+cp $SRC/icon.jpg .
+```
+
+`STATIC_EXPORT=1` change trois choses (voir `next.config.ts`) :
+`output: "export"`, l'optimiseur d'images désactivé, et
+`pageExtensions: ["tsx"]` qui exclut `app/api/cal/slots/route.ts` —
+un route handler dynamique est incompatible avec l'export.
+
+### Créneaux Cal.com en production
+
+`/api/cal/slots` n'est plus servi par Next mais **par nginx**, qui relaie
+vers `api.cal.com` en injectant l'en-tête d'autorisation
+(`cal-slots.conf.template` dans `bnj-sites`). La clé reste donc hors du
+navigateur, comme avant.
+
+Le conteneur du site doit recevoir `CAL_API_KEY` dans son environnement :
+`.env` à la racine de `bnj-sites` (non versionné, modèle dans
+`.env.example`) pour un lancement local, et la même variable dans
+l'environnement du conteneur côté hébergeur. Sans elle, les pages et la
+modale Cal.com fonctionnent toujours ; seul le calendrier intégré affiche
+son état d'erreur.
+
+En développement (`npm run dev`), c'est le route handler Next qui répond :
+`charger()` dans `useCalSlots.ts` accepte les deux formes de réponse.
 
 ### Reste de l'ancienne piste Netlify
 

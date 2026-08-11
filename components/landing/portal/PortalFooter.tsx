@@ -21,8 +21,10 @@ const ORDRE: VerticalSlug[] = ["offshore", "dev", "rh"];
 
 const LIENS_SITE = [
   { label: "Site BNJ Team Maker", href: SITE },
-  { label: "Recrutement & coaching", href: `${SITE}/recrutement-et-coaching` },
-  { label: "Tech & automatisation", href: `${SITE}/tech` },
+  // URLs canoniques du site : /recrutement-et-coaching et /tech y sont
+  // redirigés en 301.
+  { label: "Recrutement & coaching", href: `${SITE}/pole-rh` },
+  { label: "Tech & automatisation", href: `${SITE}/agence-web-com` },
   { label: "Nos offres d'emploi", href: `${SITE}/carrieres` },
 ];
 

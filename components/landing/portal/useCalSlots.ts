@@ -25,10 +25,53 @@ export const TZ = CAL.defaultTimeZone;
 
 let cache: Promise<Jour[]> | null = null;
 
+/** Fenêtre interrogée : de demain à +90 jours. Assez large pour que la
+ *  navigation par mois du panneau tienne sur un seul appel. Cal applique de
+ *  son côté le préavis minimum du type d'événement. */
+function fenetre() {
+  const debut = new Date();
+  debut.setDate(debut.getDate() + 1);
+  const fin = new Date(debut);
+  fin.setDate(fin.getDate() + 90);
+  const jour = (d: Date) => d.toISOString().slice(0, 10);
+  return { start: jour(debut), end: jour(fin) };
+}
+
+/** Réponse brute de l'API Cal v2 : `{ data: { "AAAA-MM-JJ": [{ start }] } }`. */
+type ReponseCal = { data?: Record<string, { start: string }[]> };
+
+/**
+ * Deux serveurs peuvent répondre ici, d'où les deux formes acceptées :
+ *
+ * - le route handler Next (`npm run dev`), qui renvoie déjà `{ jours }` ;
+ * - le proxy nginx du site statique, qui relaie la réponse Cal telle quelle
+ *   en n'ajoutant que l'en-tête d'autorisation.
+ *
+ * Les paramètres sont donc tous passés dans l'URL : nginx ne sait pas
+ * calculer une fenêtre de dates, et `eventTypeId` est une donnée publique
+ * (elle figure déjà dans le lien de réservation).
+ */
 function charger(): Promise<Jour[]> {
-  cache ??= fetch(`/api/cal/slots?timeZone=${encodeURIComponent(TZ)}`)
+  const { start, end } = fenetre();
+  const q = new URLSearchParams({
+    eventTypeId: String(CAL.eventTypeId),
+    start,
+    end,
+    timeZone: TZ,
+  });
+
+  cache ??= fetch(`/api/cal/slots?${q}`)
     .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-    .then((d: { jours?: Jour[] }) => d.jours ?? [])
+    .then((d: { jours?: Jour[] } & ReponseCal) => {
+      if (d.jours) return d.jours;
+      return Object.entries(d.data ?? {})
+        .map(([date, slots]) => ({
+          date,
+          slots: (slots ?? []).map((s) => s.start),
+        }))
+        .filter((j) => j.slots.length > 0)
+        .sort((a, b) => a.date.localeCompare(b.date));
+    })
     .catch((e) => {
       cache = null;
       throw e;
