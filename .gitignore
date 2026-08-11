@@ -30,8 +30,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files — les secrets ne sont jamais versionnés.
+# .env.example est le gabarit sans valeurs : lui doit être suivi.
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -40,25 +42,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# ─── Exclusions BNJ (repo landing pages uniquement) ───
-# Site statique (versionné dans le repo bnj-sites)
+# ─── Exclusions BNJ ───
+# Ce repo ne contient plus que la landing développeurs. Le site statique,
+# la plateforme MLM et la plateforme podcast/blog vivent dans leurs propres
+# repos ; leurs anciennes exclusions ont été retirées avec le code mort.
 Nouveau site BNJ/
 
-# Docs internes des plateformes exclues (skills Claude)
-/.claude/bnj-blog-editor/
-/.claude/bnj-mlm-plateform/
-
-# Plateforme d'upload podcast + blog
-/app/admin/
-/app/api/blog/
-/app/api/podcasts/
-/components/admin/
-/lib/validation/blog.ts
-
-# Plateforme MLM
-/app/mlm/
-/components/mlm/
-/content/academy/
-/lib/mlm/
-/lib/validation/mlm.ts
-/supabase/mlm_*.sql
+# Local Netlify folder
+.netlify

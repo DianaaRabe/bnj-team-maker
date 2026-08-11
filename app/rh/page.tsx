@@ -1,31 +1,24 @@
 import type { Metadata } from "next";
-import { rhData } from "@/lib/data/rh";
-import { PROFILES } from "@/lib/data/profiles";
-import PageWithModal from "@/components/landing/PageWithModal";
+import PortalLanding from "@/components/landing/portal/PortalLanding";
+import { VERTICALS } from "@/lib/data/verticals";
+
+const v = VERTICALS.rh;
 
 export const metadata: Metadata = {
-  title: rhData.meta.title,
-  description: rhData.meta.description,
+  title: v.meta.title,
+  description: v.meta.description,
+  alternates: { canonical: "/rh" },
   openGraph: {
-    title: rhData.meta.title,
-    description: rhData.meta.description,
-    type: "website",
+    title: v.meta.title,
+    description: v.meta.description,
+    url: "/rh",
+    siteName: "BNJ Team Maker",
     locale: "fr_FR",
+    type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: rhData.meta.title,
-    description: rhData.meta.description,
-  },
-  robots: { index: true, follow: true },
 };
 
-export default function RHPage() {
-  return (
-    <PageWithModal
-      data={rhData}
-      profiles={PROFILES.rh}
-      navCtaLabel="Voir les profils RH →"
-    />
-  );
+/** Landing recrutement & RH — servie sur bnjteammaker.fr/rh. */
+export default function Page() {
+  return <PortalLanding v={v} />;
 }

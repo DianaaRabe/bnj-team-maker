@@ -1,0 +1,14 @@
+# Netlify — build de la landing.
+#
+# Le runtime Next.js de Netlify est détecté et installé automatiquement : il
+# prend en charge le rendu serveur, donc la route /api/cal/slots fonctionne
+# sans configuration supplémentaire. Ne PAS forcer un export statique ici —
+# cette route a besoin du serveur pour garder CAL_API_KEY hors du navigateur.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Aligné sur la version requise par Next.js 16.
+  NODE_VERSION = "20"

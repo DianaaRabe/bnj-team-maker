@@ -1,25 +1,24 @@
 import type { Metadata } from "next";
-import { devData } from "@/lib/data/dev";
-import { PROFILES } from "@/lib/data/profiles";
-import DossierPage from "@/components/landing/dev/DossierPage";
+import PortalLanding from "@/components/landing/portal/PortalLanding";
+import { VERTICALS } from "@/lib/data/verticals";
+
+const v = VERTICALS.dev;
 
 export const metadata: Metadata = {
-  title: devData.meta.title,
-  description: devData.meta.description,
+  title: v.meta.title,
+  description: v.meta.description,
+  alternates: { canonical: "/dev" },
   openGraph: {
-    title: devData.meta.title,
-    description: devData.meta.description,
-    type: "website",
+    title: v.meta.title,
+    description: v.meta.description,
+    url: "/dev",
+    siteName: "BNJ Team Maker",
     locale: "fr_FR",
+    type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: devData.meta.title,
-    description: devData.meta.description,
-  },
-  robots: { index: true, follow: true },
 };
 
-export default function DevPage() {
-  return <DossierPage data={devData} profiles={PROFILES.dev} />;
+/** Landing développeurs — servie sur bnjteammaker.fr/dev. */
+export default function Page() {
+  return <PortalLanding v={v} />;
 }

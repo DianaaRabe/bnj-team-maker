@@ -5,7 +5,8 @@ export const BRAND = {
     white: "https://cdn.prod.website-files.com/68f74eda1b97775fa6dd76a2/691752fe9142ffa21169191b_Logo_white.png",
     color: "https://cdn.prod.website-files.com/68f74eda1b97775fa6dd76a2/68f74eda1b97775fa6dd797b_BNJ_logo%20(2).png",
   },
-  calendly: "https://calendly.com/benjaminparienty/30min",
+  // Plus de Calendly : toute la page réserve via Cal.com, comme le
+  // panneau de créneaux. Le lien vit dans lib/cal.ts (CAL_LINK).
   email: "contact@bnjteammaker.fr",
   colors: {
     primary: "#590293",

@@ -1,87 +1,16 @@
+/**
+ * Types partagés.
+ *
+ * Le modèle de contenu d'une landing vit désormais dans
+ * lib/data/verticals.ts (`Vertical`) : l'ancien `LandingPageData`
+ * décrivait des sections qui n'existent plus et a été retiré plutôt que
+ * gardé en doublon.
+ */
+
+/** Familles de profils du vivier — voir lib/data/profiles.ts. */
 export type PageVariant = "dev" | "sdr" | "rh";
-
-export interface Stat {
-  value: string;
-  label: string;
-  sublabel?: string;
-}
-
-export interface PainPoint {
-  icon: string;
-  title: string;
-  description: string;
-}
-
-export interface WhyItem {
-  icon: string;
-  title: string;
-  description: string;
-}
-
-export interface Skill {
-  name: string;
-  category?: string;
-}
-
-export interface ProcessStep {
-  step: string;
-  title: string;
-  description: string;
-}
 
 export interface FAQItem {
   question: string;
   answer: string;
-}
-
-export interface LandingPageData {
-  variant: PageVariant;
-  meta: {
-    title: string;
-    description: string;
-  };
-  hero: {
-    badge: string;
-    headline: string;
-    headlineAccent: string;
-    subheadline: string;
-    ctaPrimary: string;
-    ctaSecondary: string;
-  };
-  stats: Stat[];
-  painPoints: {
-    title: string;
-    subtitle: string;
-    items: PainPoint[];
-    transition: string;
-  };
-  whyBNJ: {
-    title: string;
-    subtitle: string;
-    items: WhyItem[];
-  };
-  profileSection: {
-    title: string;
-    subtitle: string;
-    skills: Skill[];
-    description: string;
-  };
-  aPlayers: {
-    title: string;
-    headlineAccent: string;
-    body: string;
-    proof: string;
-    /** Chiffres du bordereau de la note. Optionnel : seule la landing /dev
-     *  les rend. Les garder ici évite qu'une même affirmation vive à deux
-     *  endroits avec deux valeurs différentes. */
-    metrics?: Stat[];
-  };
-  faq: FAQItem[];
-  finalCTA: {
-    title: string;
-    titleAccent: string;
-    subtitle: string;
-    ctaPrimary: string;
-    ctaSecondary: string;
-  };
 }
