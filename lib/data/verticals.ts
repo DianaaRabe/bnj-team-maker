@@ -18,8 +18,10 @@ import { PROFILES, type TalentProfile } from "@/lib/data/profiles";
      sont réelles (anonymisées). Les métiers sans profil réel dans le
      vivier — growth, CM, assistant admin — sont présentés SANS TJM
      plutôt qu'avec un tarif inventé ;
-   — aucun témoignage réel : ceux d'ici sont explicitement marqués comme
-     exemples de mise en page (voir LoveWall).
+   — aucun témoignage : BNJ n'en a pas de réel à ce jour, et les exemples
+     de mise en page ne sont pas affichables sur une page commerciale. Les
+     `love.items` sont donc vides et la section n'est pas rendue. Le
+     gabarit est conservé dans testimonials.example.ts, que rien n'importe.
    ───────────────────────────────────────────────────────────────────── */
 
 export type VerticalSlug = "dev" | "rh" | "offshore";
@@ -186,16 +188,7 @@ const dev: Vertical = {
   love: {
     title: "Adopté par les équipes tech",
     sub: "Ce que disent les équipes qui recrutent avec nous",
-    items: [
-      { nom: "Julien Ferrand", poste: "CTO · Novalia (SaaS B2B)", texte: "Le dev qu'on a intégré a livré son premier module en prod avant la fin du sprint. Le delivery n'a jamais ralenti la vélocité de l'équipe, contrairement à ce qu'on craignait." },
-      { nom: "Camille Roussel", poste: "Head of Engineering · Kelvyn CRM", texte: "On refondait notre CRM interne et il manquait deux devs back. BNJ nous en a mis un en poste en une semaine, avec la codebase en tête dès le premier standup." },
-      { nom: "Antoine Marchetti", poste: "Fondateur · Structo (SaaS RH)", texte: "On a scalé l'équipe produit sans dégrader le rythme de release. Deux devs, deux features livrées le mois suivant, comme si l'équipe était en place depuis six mois." },
-      { nom: "Léa Bertrand", poste: "VP Product · Tallyo (plateforme ATS)", texte: "Voir le TJM et le stack avant le premier appel a changé la donne côté produit : on a pu cadrer le scope du sprint avant même d'avoir signé." },
-      { nom: "Nicolas Ory", poste: "Lead Dev · Cardyo (fintech)", texte: "L'onboarding technique était fait avant l'arrivée : accès, repo, tickets priorisés. Le premier commit en prod est parti au bout de trois jours." },
-      { nom: "Sophie Delatour", poste: "DSI · Reso (SaaS retail)", texte: "On migrait notre ATS legacy vers une stack moderne. Le dev a tenu la roadmap de migration sans un jour de retard sur les deux mois de delivery." },
-      { nom: "Maxime Guillot", poste: "CTO · Fluenta (scale-up SaaS)", texte: "Un profil n'a pas tenu le rythme de delivery attendu. Remplacé sous dix jours, sans discussion et sans que le backlog en pâtisse." },
-      { nom: "Inès Chapelle", poste: "Engineering Manager · Meridianne CRM", texte: "Sur un produit CRM avec beaucoup de dette technique, avoir un dev déjà rôdé aux specs mal écrites a évité trois semaines de clarifications." },
-    ],
+    items: [],
   },
   faq: FAQ_SANS_LANGUE,
   booking: {
@@ -285,16 +278,7 @@ const rh: Vertical = {
   love: {
     title: "Adopté par les équipes qui recrutent",
     sub: "Ce que disent les entreprises qui externalisent leur recrutement",
-    items: [
-      { nom: "Claire Vasseur", poste: "DRH · Ombeline (retail, 140 salariés)", texte: "On avait douze postes ouverts et une seule personne aux RH. La chargée de recrutement de BNJ a repris le sourcing en trois jours, sans période de flottement." },
-      { nom: "Thomas Rivière", poste: "Fondateur · Skalen (scale-up B2B)", texte: "Notre time-to-hire est passé de deux mois à trois semaines. Pas de secret : quelqu'un s'occupe enfin des relances à temps plein." },
-      { nom: "Nadia Berthier", poste: "Head of People · Vantel", texte: "Le tri des candidatures nous mangeait deux jours par semaine. Aujourd'hui je ne vois que des dossiers pré-qualifiés, avec un compte rendu d'entretien." },
-      { nom: "Pierre Lemoine", poste: "DG · Groupe Astel (services)", texte: "On cherchait un profil RH sans vouloir ouvrir un CDI. Un temps partagé chez BNJ a réglé la question, et on ajuste le volume chaque trimestre." },
-      { nom: "Émilie Fontaine", poste: "Talent Manager · Kaleo", texte: "Le vrai apport a été la structure : grilles d'entretien, scorecards, process d'onboarding écrit. Ça n'existait pas avant chez nous." },
-      { nom: "Yann Delcourt", poste: "COO · Neveris (industrie)", texte: "Recruter des techniciens en région, c'était devenu impossible en interne. Le sourcing multi-jobboard a débloqué quatre postes en un mois." },
-      { nom: "Sarah Ould", poste: "DRH · Petrelle & Associés", texte: "La communication en français n'a jamais été un sujet. Les entretiens candidats se passent exactement comme s'ils étaient dans nos bureaux." },
-      { nom: "Grégoire Nallet", poste: "Directeur associé · Hyanne Conseil", texte: "On a testé un profil sur un mois avant de s'engager. C'est ce format sans engagement qui nous a décidés à continuer." },
-    ],
+    items: [],
   },
   faq: [
     ...GLOBAL_FAQ,
@@ -392,16 +376,7 @@ const offshore: Vertical = {
   love: {
     title: "Adopté par les équipes qui scalent",
     sub: "Ce que disent les entreprises qui construisent leur équipe avec nous",
-    items: [
-      { nom: "Julien Ferrand", poste: "CTO · Novalia (SaaS B2B)", texte: "Le dev qu'on a intégré a livré son premier module en prod avant la fin du sprint. Le delivery n'a jamais ralenti la vélocité de l'équipe." },
-      { nom: "Claire Vasseur", poste: "DRH · Ombeline (retail)", texte: "On avait douze postes ouverts et une seule personne aux RH. La chargée de recrutement de BNJ a repris le sourcing en trois jours." },
-      { nom: "Marc Anselme", poste: "VP Sales · Trilio (SaaS)", texte: "Deux SDR en poste en dix jours. Le pipeline a redémarré au mois suivant, sans que j'aie eu à ouvrir un seul processus de recrutement." },
-      { nom: "Nadia Berthier", poste: "Head of People · Vantel", texte: "Le tri des candidatures nous mangeait deux jours par semaine. Aujourd'hui je ne vois que des dossiers pré-qualifiés." },
-      { nom: "Hugo Trémaud", poste: "Fondateur · Lorenzia (e-commerce)", texte: "Un assistant admin et une CM. Deux postes que je n'aurais jamais ouverts en CDI et qui m'ont rendu quinze heures par semaine." },
-      { nom: "Sophie Delatour", poste: "DSI · Reso (SaaS retail)", texte: "Un seul interlocuteur pour trois métiers différents, c'est ce qui a fait la décision. Avant, on jonglait entre trois prestataires." },
-      { nom: "Maxime Guillot", poste: "CTO · Fluenta (scale-up)", texte: "Un profil n'a pas tenu le rythme attendu. Remplacé sous dix jours, sans discussion et sans que le backlog en pâtisse." },
-      { nom: "Élodie Kerhoas", poste: "Directrice marketing · Baltane", texte: "La community manager écrit un français impeccable. C'était mon inquiétude principale et elle a été levée dès le test rédactionnel." },
-    ],
+    items: [],
   },
   faq: [
     ...GLOBAL_FAQ,
@@ -418,7 +393,32 @@ const offshore: Vertical = {
   },
 };
 
-export const VERTICALS: Record<VerticalSlug, Vertical> = { dev, rh, offshore };
+/**
+ * Le mur des retours est-il alimenté par de VRAIS témoignages ?
+ *
+ * Les huit verbatims de chaque verticale ci-dessus sont des exemples de mise
+ * en page : noms et sociétés sont inventés. Sur une page commerciale, ce sont
+ * des témoignages fabriqués — le bandeau d'avertissement de LoveWall ne
+ * suffisait qu'en interne.
+ *
+ * Tant que ce drapeau vaut `false`, les verbatims sont retirés à la source :
+ * la section n'est pas rendue ET le contenu ne part pas dans le HTML. Les
+ * pages passent la verticale entière à un composant client — ce qui resterait
+ * ici serait lisible dans le code source de la page, même sans être affiché.
+ *
+ * Le repasser à `true` demande deux choses, dans cet ordre : remplacer les
+ * `love.items` par de vrais retours, puis retirer le bandeau de LoveWall.tsx.
+ */
+export const TEMOIGNAGES_REELS = false;
+
+const sansTemoignages = (v: Vertical): Vertical =>
+  TEMOIGNAGES_REELS ? v : { ...v, love: { ...v.love, items: [] } };
+
+export const VERTICALS: Record<VerticalSlug, Vertical> = {
+  dev: sansTemoignages(dev),
+  rh: sansTemoignages(rh),
+  offshore: sansTemoignages(offshore),
+};
 
 /* ── Les métiers, affichés sur /offshore uniquement ────────────────────
    `tjm` n'est renseigné QUE lorsqu'un profil réel du vivier le

@@ -94,10 +94,26 @@ export default function PortalFooter({ current }: { current: VerticalSlug }) {
         </RevealItem>
       </RevealGroup>
 
-      <div className="mx-auto mt-12 max-w-[1210px] border-t border-white/[0.06] pt-6">
+      {/* Mentions légales et politique de confidentialité : obligatoires, et
+          attendues par Google Ads sur une page de destination. Elles vivent
+          sur le site principal — d'où des liens absolus. */}
+      <div className="mx-auto mt-12 flex max-w-[1210px] flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/[0.06] pt-6">
         <p className="text-[0.78rem] text-white/30">
           © {new Date().getFullYear()} BNJ Team Maker — Talents francophones qualifiés.
         </p>
+        <span aria-hidden className="text-[0.78rem] text-white/15">·</span>
+        <a
+          href={`${SITE}/mentions-legales`}
+          className="text-[0.78rem] text-white/40 underline-offset-4 hover:text-white/70 hover:underline"
+        >
+          Mentions légales
+        </a>
+        <a
+          href={`${SITE}/politique-confidentialite`}
+          className="text-[0.78rem] text-white/40 underline-offset-4 hover:text-white/70 hover:underline"
+        >
+          Politique de confidentialité
+        </a>
       </div>
     </footer>
   );

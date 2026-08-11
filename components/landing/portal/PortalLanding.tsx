@@ -445,7 +445,9 @@ export default function PortalLanding({ v }: { v: Vertical }) {
       <PainGrid pains={v.pains} />
       <ProcessSpire process={v.process} />
       <CompareTable compare={v.compare} />
-      <LoveWall love={v.love} />
+      {/* Section muette tant que les verbatims sont vidés à la source —
+          voir TEMOIGNAGES_REELS dans lib/data/verticals.ts. */}
+      {v.love.items.length > 0 && <LoveWall love={v.love} />}
       <Faq items={v.faq} />
       <BookingArc booking={v.booking} />
       <PortalFooter current={v.slug} />

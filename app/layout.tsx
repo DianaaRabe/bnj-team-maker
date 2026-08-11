@@ -1,6 +1,19 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+
+/* Mesure d'audience — mêmes conteneurs que le site principal, pour que les
+   landings remontent dans les mêmes rapports et que les conversions Google
+   Ads leur soient attribuées. Sans ça, le trafic payant envoyé sur /dev,
+   /rh et /offshore n'est mesuré nulle part.
+
+   ⚠ Le site principal charge aussi Axeptio (bandeau de consentement), mais
+   son `clientId` y vaut encore « TON_CLIENT_ID_AXEPTIO » : le bandeau ne
+   fonctionne pas. Le recueil du consentement est donc à reprendre à
+   l'échelle du site — ces balises devront y être soumises. */
+const GTM_ID = "GTM-KKNKHNZQ";
+const GA4_ID = "G-Q5QBMMY5SZ";
 
 // Une seule famille : la landing n'utilise que DM Sans. Archivo et Work Sans
 // ne servaient qu'aux surfaces supprimées — les charger coûterait deux
@@ -44,10 +57,36 @@ export default function RootLayout({
           <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
+      <Script id="gtm" strategy="afterInteractive">
+        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`}
+      </Script>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="ga4" strategy="afterInteractive">
+        {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA4_ID}');`}
+      </Script>
       <body
         className="min-h-full flex flex-col bg-[#08050f] text-[#f0ecf8] antialiased"
         style={{ fontFamily: "inherit" }}
       >
+        {/* Repli GTM sans JavaScript — même conteneur que le site. */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         {children}
       </body>
     </html>
