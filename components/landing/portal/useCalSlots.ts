@@ -136,7 +136,11 @@ async function preparerUi() {
  * Repli sur cal.com en nouvel onglet si l'embed ne se charge pas : la
  * réservation reste possible même quand le script est bloqué.
  */
-export async function ouvrirCal(date?: string, slotIso?: string) {
+export async function ouvrirCal(
+  date?: string,
+  slotIso?: string,
+  prefill?: { name?: string; email?: string }
+) {
   try {
     await preparerUi();
     const cal = await getCalApi();
@@ -145,6 +149,8 @@ export async function ouvrirCal(date?: string, slotIso?: string) {
       config: {
         ...(date ? { month: date.slice(0, 7), date } : {}),
         ...(slotIso ? { slot: slotIso } : {}),
+        ...(prefill?.name ? { name: prefill.name } : {}),
+        ...(prefill?.email ? { email: prefill.email } : {}),
         "cal.tz": TZ,
       },
     });
@@ -152,6 +158,8 @@ export async function ouvrirCal(date?: string, slotIso?: string) {
     const params = new URLSearchParams({
       ...(date ? { date } : {}),
       ...(slotIso ? { slot: slotIso } : {}),
+      ...(prefill?.name ? { name: prefill.name } : {}),
+      ...(prefill?.email ? { email: prefill.email } : {}),
     });
     const q = params.toString();
     window.open(`https://cal.com/${CAL_LINK}${q ? `?${q}` : ""}`, "_blank", "noopener");

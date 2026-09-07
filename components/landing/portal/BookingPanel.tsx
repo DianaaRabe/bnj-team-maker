@@ -6,10 +6,10 @@ import {
   grilleMois,
   libelleJour,
   libelleMois,
-  ouvrirCal,
   TZ,
   useCalSlots,
 } from "./useCalSlots";
+import { useBooking } from "./BookingContext";
 
 /* ─────────────────────────────────────────────────────────────────────
    Panneau de réservation, branché sur les vrais créneaux Cal.com.
@@ -32,6 +32,7 @@ import {
 const JOURS_COURTS = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"];
 
 export default function BookingPanel() {
+  const { requestBooking } = useBooking();
   const { etat, jours } = useCalSlots();
   /** `null` tant que le visiteur n'a pas choisi de jour lui-même. */
   const [choix, setChoix] = useState<string | null>(null);
@@ -146,7 +147,7 @@ export default function BookingPanel() {
                   {slotsDuJour.map((iso) => (
                     <li key={iso}>
                       <button
-                        onClick={() => ouvrirCal(iso.slice(0, 10), iso)}
+                        onClick={() => requestBooking(iso.slice(0, 10), iso)}
                         className="w-full rounded-lg border border-white/[0.1] bg-white/[0.04] py-2.5 text-[0.86rem] font-medium text-white/85 transition-colors hover:border-[#c069ee]/50 hover:bg-[#590293]/25 hover:text-white"
                       >
                         {heure(iso)}

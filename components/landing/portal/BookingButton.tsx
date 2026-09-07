@@ -1,21 +1,12 @@
 "use client";
 
-import { ouvrirCal } from "./useCalSlots";
+import { useBooking } from "./BookingContext";
 
 /* ─────────────────────────────────────────────────────────────────────
    Le bouton « Réserver un appel », partout sur la page.
 
-   Il ouvre la MÊME modale Cal.com que le panneau de réservation du bas :
-   un seul agenda, un seul parcours. Auparavant ces boutons partaient sur
-   Calendly dans un nouvel onglet, alors que les créneaux affichés sur la
-   page venaient déjà de Cal — deux systèmes de réservation pour un seul
-   rendez-vous.
-
-   Sans date, Cal ouvre sur son propre calendrier : c'est le comportement
-   voulu ici, l'appel à l'action ne présume d'aucun jour.
-
-   Le repli est géré par ouvrirCal : si l'embed ne se charge pas, un
-   nouvel onglet cal.com prend le relais.
+   Il déclenche le formulaire de qualification (type Yield Studio)
+   pour exclure les mauvaises cibles avant d'ouvrir Cal.com.
    ───────────────────────────────────────────────────────────────────── */
 
 export default function BookingButton({
@@ -28,10 +19,12 @@ export default function BookingButton({
   className?: string;
   glow?: boolean;
 }) {
+  const { requestBooking } = useBooking();
+
   const bouton = (
     <button
       type="button"
-      onClick={() => ouvrirCal()}
+      onClick={() => requestBooking()}
       className={`p-cta relative z-10 inline-flex items-center gap-2 rounded-lg font-medium ${className}`}
     >
       {children}

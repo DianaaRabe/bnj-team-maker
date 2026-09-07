@@ -5,7 +5,9 @@ import Link from "next/link";
 import type { TalentProfile } from "@/lib/data/profiles";
 import type { Vertical } from "@/lib/data/verticals";
 import { BRAND } from "@/lib/constants";
-import { grilleMois, libelleJour, libelleMois, ouvrirCal, useCalSlots } from "./useCalSlots";
+import { grilleMois, libelleJour, libelleMois, useCalSlots } from "./useCalSlots";
+import { BookingProvider, useBooking } from "./BookingContext";
+import QualificationModal from "./QualificationModal";
 import BookingButton from "./BookingButton";
 import { RevealOnLoad } from "./Reveal";
 import CostSimulator from "./CostSimulator";
@@ -122,6 +124,7 @@ function Portal({ techs }: { techs: Vertical["techs"] }) {
  * réservation du bas, et un clic sur un jour ouvre la modale Cal dessus.
  */
 function Disponibilites() {
+  const { requestBooking } = useBooking();
   const { etat, jours } = useCalSlots();
 
   const dispo = useMemo(() => new Set(jours.map((j) => j.date)), [jours]);
@@ -167,7 +170,7 @@ function Disponibilites() {
               return (
                 <button
                   key={n}
-                  onClick={() => ouvrirCal(date)}
+                  onClick={() => requestBooking(date)}
                   aria-label={`Réserver un appel le ${libelleJour(date)}`}
                   className="mx-auto flex h-7 w-7 items-center justify-center rounded-md font-medium text-white/85 transition-colors hover:bg-[#590293] hover:text-white"
                 >
@@ -353,104 +356,107 @@ export default function PortalLanding({ v }: { v: Vertical }) {
   const nav = showMetiers ? [NAV[0], { label: "Métiers", href: "#metiers" }, ...NAV.slice(1)] : NAV;
 
   return (
-    <div data-surface="portal" className="relative min-h-screen overflow-hidden">
-      {/* ── Navigation ── */}
-      <header className="relative z-20 mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-5 md:px-8">
-        <Link href="/" className="flex items-center gap-2.5">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={BRAND.logo.white} alt="BNJ Team Maker" style={{ height: "1.9rem", width: "auto" }} />
-        </Link>
+    <BookingProvider>
+      <div data-surface="portal" className="relative min-h-screen overflow-hidden">
+        {/* ── Navigation ── */}
+        <header className="relative z-20 mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-5 md:px-8">
+          <Link href="/" className="flex items-center gap-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={BRAND.logo.white} alt="BNJ Team Maker" style={{ height: "1.9rem", width: "auto" }} />
+          </Link>
 
-        <nav className="p-navpill hidden items-center gap-0.5 rounded-full p-1.5 lg:flex">
-          {nav.map((n) => (
-            <a key={n.label} href={n.href} className="p-navlink rounded-full px-4 py-2 text-[0.9rem]">
-              {n.label}
-            </a>
-          ))}
-        </nav>
+          <nav className="p-navpill hidden items-center gap-0.5 rounded-full p-1.5 lg:flex">
+            {nav.map((n) => (
+              <a key={n.label} href={n.href} className="p-navlink rounded-full px-4 py-2 text-[0.9rem]">
+                {n.label}
+              </a>
+            ))}
+          </nav>
 
-        <div className="flex items-center gap-3">
-          <BookingButton className="px-4 py-2.5 text-[0.88rem]" />
+          <div className="flex items-center gap-3">
+            <BookingButton className="px-4 py-2.5 text-[0.88rem]" />
+          </div>
+        </header>
+
+        {/* ── Accroche + simulateur, côte à côte ──
+            Deux colonnes à partir de xl seulement : en dessous, la colonne
+            gauche devient trop étroite pour un titre de cette taille. */}
+        <div className="relative z-10 mx-auto grid max-w-[1300px] items-center gap-10 px-5 pt-12 text-center md:pt-16 xl:grid-cols-[minmax(0,1fr)_430px] xl:gap-14 xl:text-left">
+          {/* Le hero est déjà à l'écran au chargement : il s'anime à
+              l'ouverture, pas au défilement. Les retards échelonnent
+              badge → titre → sous-titre → bouton, 80 ms d'écart. */}
+          <div className="min-w-0">
+            <RevealOnLoad>
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.11] bg-white/[0.05] px-4 py-2 text-[0.86rem] text-white/85">
+              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 flex-shrink-0" fill="none" aria-hidden>
+                <path
+                  d="M8 1.5 9.3 5.9 13.7 7.2 9.3 8.5 8 12.9 6.7 8.5 2.3 7.2 6.7 5.9Z"
+                  fill="#c069ee"
+                />
+                <path
+                  d="M12.8 11.4 13.4 13.2 15.2 13.8 13.4 14.4 12.8 16.2 12.2 14.4 10.4 13.8 12.2 13.2Z"
+                  fill="#c069ee"
+                  opacity="0.65"
+                />
+              </svg>
+              {v.hero.badge}
+            </span>
+            </RevealOnLoad>
+
+            {/* Pas de nowrap : en deux colonnes le titre a moins de largeur et
+                doit pouvoir passer sur deux lignes. */}
+            <RevealOnLoad delay={0.08}>
+              <h1 className="mt-7 text-[2.4rem] font-semibold leading-[1.04] tracking-[-0.035em] text-white sm:text-[3.4rem] md:text-[4.2rem] xl:text-[3.9rem]">
+                {v.hero.line1}
+                <br />
+                {v.hero.line2}
+              </h1>
+            </RevealOnLoad>
+
+            <RevealOnLoad delay={0.16}>
+              <p className="mx-auto mt-5 max-w-[46ch] text-[1rem] text-white/55 md:text-[1.12rem] xl:mx-0">
+                {v.hero.sub}
+              </p>
+            </RevealOnLoad>
+
+            <RevealOnLoad delay={0.24} className="mt-8 flex justify-center xl:justify-start">
+              <BookingButton glow className="px-6 py-3.5 text-[0.9rem]" />
+            </RevealOnLoad>
+          </div>
+
+          {/* Simulateur — à droite du titre à partir de xl. Il entre en
+              dernier : c'est l'argument, il doit arriver une fois
+              l'accroche lue. */}
+          <RevealOnLoad delay={0.3} className="mt-2 xl:mt-0">
+            <CostSimulator postes={v.sim.postes} />
+          </RevealOnLoad>
         </div>
-      </header>
 
-      {/* ── Accroche + simulateur, côte à côte ──
-          Deux colonnes à partir de xl seulement : en dessous, la colonne
-          gauche devient trop étroite pour un titre de cette taille. */}
-      <div className="relative z-10 mx-auto grid max-w-[1300px] items-center gap-10 px-5 pt-12 text-center md:pt-16 xl:grid-cols-[minmax(0,1fr)_430px] xl:gap-14 xl:text-left">
-        {/* Le hero est déjà à l'écran au chargement : il s'anime à
-            l'ouverture, pas au défilement. Les retards échelonnent
-            badge → titre → sous-titre → bouton, 80 ms d'écart. */}
-        <div className="min-w-0">
-          <RevealOnLoad>
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.11] bg-white/[0.05] px-4 py-2 text-[0.86rem] text-white/85">
-            <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 flex-shrink-0" fill="none" aria-hidden>
-              <path
-                d="M8 1.5 9.3 5.9 13.7 7.2 9.3 8.5 8 12.9 6.7 8.5 2.3 7.2 6.7 5.9Z"
-                fill="#c069ee"
-              />
-              <path
-                d="M12.8 11.4 13.4 13.2 15.2 13.8 13.4 14.4 12.8 16.2 12.2 14.4 10.4 13.8 12.2 13.2Z"
-                fill="#c069ee"
-                opacity="0.65"
-              />
-            </svg>
-            {v.hero.badge}
-          </span>
-          </RevealOnLoad>
-
-          {/* Pas de nowrap : en deux colonnes le titre a moins de largeur et
-              doit pouvoir passer sur deux lignes. */}
-          <RevealOnLoad delay={0.08}>
-            <h1 className="mt-7 text-[2.4rem] font-semibold leading-[1.04] tracking-[-0.035em] text-white sm:text-[3.4rem] md:text-[4.2rem] xl:text-[3.9rem]">
-              {v.hero.line1}
-              <br />
-              {v.hero.line2}
-            </h1>
-          </RevealOnLoad>
-
-          <RevealOnLoad delay={0.16}>
-            <p className="mx-auto mt-5 max-w-[46ch] text-[1rem] text-white/55 md:text-[1.12rem] xl:mx-0">
-              {v.hero.sub}
-            </p>
-          </RevealOnLoad>
-
-          <RevealOnLoad delay={0.24} className="mt-8 flex justify-center xl:justify-start">
-            <BookingButton glow className="px-6 py-3.5 text-[0.9rem]" />
+        {/* ── Portail + panneau ──
+            Le portail est pleine largeur : enfermé dans le padding, il se lisait
+            comme un rectangle violet à bords francs au format téléphone. Seul le
+            panneau garde sa gouttière. */}
+        <div id="profils" className="relative z-10 mt-2 md:mt-6">
+          <Portal techs={v.techs} />
+          {/* Le panneau monte depuis le bord bas du portail, en dernier :
+              c'est lui qui « allume » la scène. */}
+          <RevealOnLoad delay={0.38} className="px-4">
+            <ProfilePanel profiles={v.profiles} />
           </RevealOnLoad>
         </div>
 
-        {/* Simulateur — à droite du titre à partir de xl. Il entre en
-            dernier : c'est l'argument, il doit arriver une fois
-            l'accroche lue. */}
-        <RevealOnLoad delay={0.3} className="mt-2 xl:mt-0">
-          <CostSimulator postes={v.sim.postes} />
-        </RevealOnLoad>
+        {showMetiers && <RolesGrid />}
+        <PainGrid pains={v.pains} />
+        <ProcessSpire process={v.process} />
+        <CompareTable compare={v.compare} />
+        {/* Section muette tant que les verbatims sont vidés à la source —
+            voir TEMOIGNAGES_REELS dans lib/data/verticals.ts. */}
+        {v.love.items.length > 0 && <LoveWall love={v.love} />}
+        <Faq items={v.faq} />
+        <BookingArc booking={v.booking} />
+        <PortalFooter current={v.slug} />
       </div>
-
-      {/* ── Portail + panneau ──
-          Le portail est pleine largeur : enfermé dans le padding, il se lisait
-          comme un rectangle violet à bords francs au format téléphone. Seul le
-          panneau garde sa gouttière. */}
-      <div id="profils" className="relative z-10 mt-2 md:mt-6">
-        <Portal techs={v.techs} />
-        {/* Le panneau monte depuis le bord bas du portail, en dernier :
-            c'est lui qui « allume » la scène. */}
-        <RevealOnLoad delay={0.38} className="px-4">
-          <ProfilePanel profiles={v.profiles} />
-        </RevealOnLoad>
-      </div>
-
-      {showMetiers && <RolesGrid />}
-      <PainGrid pains={v.pains} />
-      <ProcessSpire process={v.process} />
-      <CompareTable compare={v.compare} />
-      {/* Section muette tant que les verbatims sont vidés à la source —
-          voir TEMOIGNAGES_REELS dans lib/data/verticals.ts. */}
-      {v.love.items.length > 0 && <LoveWall love={v.love} />}
-      <Faq items={v.faq} />
-      <BookingArc booking={v.booking} />
-      <PortalFooter current={v.slug} />
-    </div>
+      <QualificationModal />
+    </BookingProvider>
   );
 }

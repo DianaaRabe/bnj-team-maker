@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { CompareCell as Cell, Vertical } from "@/lib/data/verticals";
 import { Reveal } from "./Reveal";
-import { ouvrirCal } from "./useCalSlots";
+import { useBooking } from "./BookingContext";
 
 /* ─────────────────────────────────────────────────────────────────────
    Tableau comparatif — reproduction de la référence, en thème CLAIR.
@@ -50,6 +50,7 @@ function Value({ v, bnj }: { v: Cell; bnj: boolean }) {
 }
 
 export default function CompareTable({ compare }: { compare: Vertical["compare"] }) {
+  const { requestBooking } = useBooking();
   const [open, setOpen] = useState(false);
   const rows = open ? compare.rows : compare.rows.slice(0, VISIBLES);
 
@@ -172,7 +173,7 @@ export default function CompareTable({ compare }: { compare: Vertical["compare"]
               la classe .p-cta calibrée pour le fond sombre. */}
           <button
             type="button"
-            onClick={() => ouvrirCal()}
+            onClick={() => requestBooking()}
             className="inline-flex items-center gap-2 rounded-lg bg-[#590293] px-6 py-3.5 text-[0.9rem] font-medium text-white transition-colors hover:bg-[#6d0eb0]"
           >
             Réserver un appel
