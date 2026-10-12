@@ -11,6 +11,7 @@ interface HeroProps {
   stats: LandingPageData["stats"];
   variant: LandingPageData["variant"];
   onOpenModal: () => void;
+  onOpenCalendly: () => void;
 }
 
 const variantIcon = {
@@ -46,7 +47,7 @@ function FadeUp({
   );
 }
 
-export default function Hero({ data, stats, variant, onOpenModal }: HeroProps) {
+export default function Hero({ data, stats, variant, onOpenModal, onOpenCalendly }: HeroProps) {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-grid noise-overlay px-6 pt-28 pb-16 md:px-12 xl:px-20">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -90,14 +91,12 @@ export default function Hero({ data, stats, variant, onOpenModal }: HeroProps) {
                 >
                   {data.ctaPrimary}
                 </button>
-                <a
-                  href={BRAND.calendly}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={onOpenCalendly}
                   className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white/80 whitespace-nowrap backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/10 hover:text-white active:scale-95"
                 >
                   {data.ctaSecondary}
-                </a>
+                </button>
               </div>
             </FadeUp>
 

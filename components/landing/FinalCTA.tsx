@@ -7,9 +7,10 @@ import { BRAND } from "@/lib/constants";
 interface FinalCTAProps {
   data: LandingPageData["finalCTA"];
   onOpenModal: () => void;
+  onOpenCalendly: () => void;
 }
 
-export default function FinalCTA({ data, onOpenModal }: FinalCTAProps) {
+export default function FinalCTA({ data, onOpenModal, onOpenCalendly }: FinalCTAProps) {
   return (
     <section className="relative overflow-hidden px-6 py-24 md:px-12 md:py-32 xl:px-20">
       {/* Deep purple bg */}
@@ -69,15 +70,13 @@ export default function FinalCTA({ data, onOpenModal }: FinalCTAProps) {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
         >
-          <a
-            href={BRAND.calendly}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={onOpenCalendly}
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#feb527] px-10 py-5 text-base font-bold text-[#08050f] transition-all hover:scale-105 hover:bg-[#ffc94d] active:scale-95 glow-gold"
           >
             {data.ctaPrimary}
             <span className="transition-transform group-hover:translate-x-1">→</span>
-          </a>
+          </button>
           <button
             onClick={onOpenModal}
             className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-10 py-5 text-base font-medium text-white/80 backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/10 hover:text-white active:scale-95"

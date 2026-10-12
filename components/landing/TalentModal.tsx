@@ -11,6 +11,7 @@ interface TalentModalProps {
   onClose: () => void;
   profiles: TalentProfile[];
   variant: "dev" | "sdr" | "rh";
+  onOpenCalendly?: () => void;
 }
 
 const variantLabel: Record<string, string> = {
@@ -24,7 +25,7 @@ const availabilityStyle = {
   "Bientôt disponible": "bg-amber-500/15 text-amber-400 border-amber-500/30",
 };
 
-export default function TalentModal({ isOpen, onClose, profiles, variant }: TalentModalProps) {
+export default function TalentModal({ isOpen, onClose, profiles, variant, onOpenCalendly }: TalentModalProps) {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
   const [prevOpen, setPrevOpen] = useState(isOpen);
@@ -57,6 +58,11 @@ export default function TalentModal({ isOpen, onClose, profiles, variant }: Tale
 
   const isCalendlySlide = current === profiles.length;
   const profile = !isCalendlySlide ? profiles[current] : null;
+
+  const handleCalendlyClick = () => {
+    onClose();
+    if (onOpenCalendly) onOpenCalendly();
+  };
 
   const slideVariants = {
     enter: (d: number) => ({ x: d > 0 ? 340 : -340, opacity: 0 }),
@@ -205,16 +211,13 @@ export default function TalentModal({ isOpen, onClose, profiles, variant }: Tale
                           Nous avons plus de 8 000 candidats qualifiés dans notre ATS. En 30 minutes, on vous sélectionne
                           les profils qui correspondent exactement à votre besoin.
                         </p>
-                        <a
-                          href={BRAND.calendly}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={onClose}
+                        <button
+                          onClick={handleCalendlyClick}
                           className="inline-flex items-center gap-2 rounded-full bg-[#feb527] px-8 py-4 text-base font-bold text-[#08050f] transition-all hover:scale-105 hover:bg-[#ffc94d] active:scale-95 glow-gold"
                         >
                           <Calendar className="h-4 w-4" />
                           Réserver un appel gratuit
-                        </a>
+                        </button>
                         <p className="mt-4 text-xs text-[#a898c0]">Sans engagement · Premiers profils sous 48h</p>
                       </div>
                     )}
@@ -227,15 +230,12 @@ export default function TalentModal({ isOpen, onClose, profiles, variant }: Tale
                 {/* Sticky CTA — visible immediately for profile slides */}
                 {!isCalendlySlide && (
                   <div className="px-6 pt-4 pb-2">
-                    <a
-                      href={BRAND.calendly}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={onClose}
+                    <button
+                      onClick={handleCalendlyClick}
                       className="flex w-full items-center justify-center gap-2 rounded-full bg-[#590293] px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-[#6d03b3] hover:scale-[1.02] active:scale-95"
                     >
                       Discuter de ce profil →
-                    </a>
+                    </button>
                   </div>
                 )}
 
